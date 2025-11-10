@@ -1,0 +1,115 @@
+Egyszerű cserés rendezés
+
+Működési módja:
+A rendezendő tömb elemein egyesével végighaladunk. Rendre megvizsgáljuk, hogy az adott helyen lévő elem milyen relációban van az utána következő elemekkel. Minden összehasonlítás után megnézzük, hogy az adott helyen lévő elem nagyobb-e a hasonlított elemnél. Ha nagyobb, akkor megcseréljük a két elemet. Ha az adott elemre vonatkozóan az összes összehasonlítással végeztünk, akkor jön a következő elem. Mindaddig folytatjuk a fenti műveletet, amíg az utolsó előtti elemmel is el nem végeztük. Négyzetes idejű algoritmus.
+ 
+            int[] t = { 12, 5, 7, 9, 4, 30 };
+
+            for (int i = 0; i < t.Length-1; i++)
+            {
+                for (int j = i+1; j < t.Length; j++)
+                {
+                    if (t[i]>t[j])
+                    {
+                        int seged = t[i];
+                        t[i] = t[j];
+                        t[j] = seged;
+                    }
+                }
+            }            
+
+
+Buborékos rendezés:
+
+Működési módja:
+Sorban végigmegyünk a tömb elemein, és az egymás melletti elemeket összehasonlítjuk. Mindig cserélünk, amennyiben az első elem a nagyobb. Ezáltal a legnagyobb elem a tömb végére kerül, rendezett lesz. A még nem rendezett elemekkel ugyanígy járunk el (balról jobbra haladva), mindaddig, amíg a tömbünk teljesen rendezett nem lesz.
+Négyzetes idejű algoritmus.
+
+            int[] t = { 12, 5, 7, 9, 4, 30 };
+
+            for (int i = t.Length - 1; i > 0; i--)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (t[j] > t[j + 1])
+                    {
+                        int tmp = t[j + 1];
+                        t[j + 1] = t[j];
+                        t[j] = tmp;
+                    }
+                }
+            }            
+
+
+
+Gyorsrendezés (Quick Sort)
+
+Működési módja:
+Válasszuk ki a tömb középső elemét vezérelemnek. Balról haladjunk addig, amíg megtaláljuk azt az első elemet, mely ennél nem kisebb, majd jobbról haladjunk visszafelé mindaddig, amíg megtaláljuk azt az első elemet, amely ennél nem nagyobb. Cseréljük a két elemet, s folytassuk ezt az eljárást a cserélgetéssel egészen addig, amíg a bal oldalra kerülnek a középső elemnél nagyobbak, jobb oldalra pedig a kisebbek. (A középső elem cserélődhet közben.) Ezután rekurzív hívással rendezzük a tömb alsó és felső felét, majd ezeknek az alsó és felső felét, és ez folytatódik tovább, míg egyelemű tömböket nem kapunk.  
+
+Logaritmus idejű algoritmus.
+
+    static int[] t = { 8, 3, 9, 1, 5, 2, 7 };
+    static void gyorsrendezes(int also, int felso)
+    {
+        int i = also, j = felso;
+        int kozep = t[(felso + also) / 2];
+        while (also <= felso)
+        {
+            while (also < j && t[also] < kozep)
+                also++;
+            while (felso > i && t[felso] > kozep)
+                felso--;
+            if (also <= felso)
+            {
+                int tmp = t[also];
+                t[also] = t[felso];
+                t[felso] = tmp;
+                ++also;
+                --felso;
+            }
+        }
+        if (also < j) gyorsrendezes(also, j);
+        if (i < felso) gyorsrendezes(i, felso);
+    }
+
+    static void Main()
+    {
+        gyorsrendezes(0, t.Length);        
+    }
+ 
+
+Példa a rendezés mérésre C# programmal:
+
+internal class Program
+{
+	static Stopwatch sw = new Stopwatch();  // SopWatch példány létrehozása
+
+    static void Main(string[] args)
+    {
+		const int count = 500000;
+		const int min = 1;
+		const int max = 1000000;
+
+		int[] numbers = new int[count];
+		Random rnd = new Random();
+
+		// Véletlen számok generálása
+		for (int i = 0; i < count; i++)
+		{
+			numbers[i] = rnd.Next(min, max + 1);
+		}
+
+		// Időmérés kezdete
+		sw.Start();
+
+		// Rendezés
+		Array.Sort(numbers);
+
+		// Időmérés vége
+		sw.Stop();
+
+		Console.WriteLine($"Rendezés ideje: {sw.ElapsedMilliseconds} ms");	
+		Console.ReadKey();
+    }
+}
