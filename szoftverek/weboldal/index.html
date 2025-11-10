@@ -12,12 +12,22 @@
 
 </head>
 
+<!--
+Teendők:
+    animációs ábrázolás és magyarázat írása [videós ábrázolás?]
+    nagy példa adatok és a futtatási idő kiszedése és elmentése csv-be (array és object egyaránt) (több adatmennyiség: 10, 100, 500, 1000, 5000, 10000?(ha nagyon gatya majd mások lesznek a mennyiségek)) (mindegyik mennyiséget 5ször lefuttatni, de ugyan azokkal az elemekkel és átlagolni (mellette az összes elemet egyesével is elmenteni)) (Js és C# egyaránt)
+    dinamikus adatok generáltatása függvény
+    csv diagramok elkészítése (ugyan ezek adatok bemutatása weboldalon is)
+    teljes frontend
+    [readme?]
+-->
+
 <body>
     <div class="container-fluid">
         <div class="nav">
-            <a class="nav-link" href="#intro"></a>
-            <a class="nav-link" href="#reps">Ábrázolás</a>
-            <a class="nav-link" href="#datas"></a>
+            <a class="nav-link" href="#intro">Bevezetés</a>
+            <a class="nav-link" href="#rep">Ábrázolás</a>
+            <a class="nav-link" href="#datas">Adatok</a>
         </div>
     </div>
 
@@ -32,6 +42,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-6">
+                <!-- Bevezető szöveg -->
                 <div class="general-info">
 
                     <h2>Általános információk</h2>
@@ -41,20 +52,68 @@
                         <strong>vizuálisan</strong> és <strong>valós adatokkal</strong> egyaránt.
 
                     <h2>Adatok típusai</h2>
-                    <p class="data-types-mute"></p>
+                    <p class="mute">2 féle képpen szemléltetjük az adatokat</p>
                     <ul>
-                        <li><strong>Gyors szemléltetés érdekében:</strong> Dinamikusan létrehozott random adatok a weboldalon megjelnítve</li>
-                        <li><strong>Hitelesség és igazolás érdekében: Valós mérések nagyobb adathalmazokkal különböző nyelvekben egy rendezett statikus excel táblázatban megjelenítve.</strong></li>
+                        <li><strong>Gyors szemléltetés érdekében:</strong> Dinamikusan létrehozott random adatok a
+                            weboldalon megjelnítve</li>
+                        <li><strong>Hitelesség és igazolás érdekében: Valós mérések nagyobb adathalmazokkal különböző
+                                nyelvekben egy rendezett statikus excel táblázatban megjelenítve.</strong></li>
                     </ul>
                 </div>
+
             </div>
             <div class="col-sm-12 col-md-12 col-lg-6">
                 <div class="methods-info">
 
+                    <h2>Bemutatott módszerek</h2>
+                    <p class="mute">Ízelítő a bemutatásra kerülő módszerekről</p>
+
+                    <!-- Ezt a táblázatot Js-ben dinamikus adatokkal jobb lenne megvalósítani -->
+                    <table>
+                        <tr>
+                            <th>Módszer neve</th>
+                            <th>Mire jó/mikor használjuk?</th>
+                            <th>100 adatra átlagos idő (másodperc) (Js)</th>
+                            <th>100 adatra átlagos idő (másodperc) (C#)</th>
+                        </tr>
+                        <tr>
+                            <th>Egyszerű cserés rendezés</th>
+                            <td>Akkor amikor...</td>
+                            <td>x mp</td>
+                            <td>x mp</td>
+                        </tr>
+                        <tr>
+                            <th>Buborék rendezés</th>
+                            <td>Akkor amikor...</td>
+                            <td>x mp</td>
+                            <td>x mp</td>
+                        </tr>
+                        <tr>
+                            <th>Gyors rendezés</th>
+                            <td>Akkor amikor...</td>
+                            <td>x mp</td>
+                            <td>x mp</td>
+                        </tr>
+                        <tr>
+                            <th>Ide még nem tudom mi kerül</th>
+                            <td>Akkor amikor...</td>
+                            <td>x mp</td>
+                            <td>x mp</td>
+                        </tr>
+                        <tr>
+                            <th>Ide sem tudom, hogy mi kerül még</th>
+                            <td>Akkor amikor...</td>
+                            <td>x mp</td>
+                            <td>x mp</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="container rep-container" id="rep">
+        
     </div>
 
     <!-- Js fájlok -->
