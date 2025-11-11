@@ -36,7 +36,7 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
         const startButton = document.createElement("button");
         startButton.classList.add("rep-button");
         startButton.textContent = "Gomb";
-        startButton.addEventListener("click", () => sortMethods[i](elements)); // Ehez segítséget használtam, mert nem voltam tisztában az addEventListener pontos működésével: https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+        startButton.addEventListener("click", () => sortMethods[i](elements)); // Ehhez segítséget használtam, mert nem voltam tisztában az addEventListener pontos működésével: https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
         repContainer.appendChild(startButton);
     };
 
@@ -44,7 +44,14 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
 };
 
 const ecsSort = function (elements) { // Egyszerű Cserés Rendezés
-    console.log("Elso")
+    elements = elements.children; // Nem tudtam, hogy lehet ilyet, dokumentációt használtam: https://www.w3schools.com/jsref/prop_element_childelementcount.asp 
+    console.log(elements)
+    for (let i = 0; i < elements.length; i++) {
+        let element = elements[i];
+        console.log(element);
+        let elementNumber = element.innerHTML; // Value-vel próbálkoztam, de mindig undefined értéket kaptam. Itt találtam megoldást: https://stackoverflow.com/questions/39288562/how-to-get-value-of-html-element-in-javascript
+        console.log(elementNumber)
+    };
 };
 
 const buSort = function (elements) { // Buborék rendezés
