@@ -1,0 +1,38 @@
+/* Alap stílusok */
+:root {
+    --dark: #181818;
+    --light: #ebebeb;
+    --grey: #999999;
+}
+
+body {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+/* Bevezetéshez stílusok */
+
+/* Ábrázoláshoz stílusok */
+.rep-elements {
+    display: flex;
+    justify-content: space-between;
+    margin: 100px 0;
+}
+
+.rep-element {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid var(--light);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+
+    /* background-color: var(--light);
+    color: var(--dark); */ /* Ha az element már biztosan jó helyen van */
+    /* box-shadow: 0px 0px 10px 5px var(--grey); */ /* Mozgatandó elemetre kerül majd rá */
+}
+
+/* Adatok stílusai */
