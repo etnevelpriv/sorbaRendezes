@@ -252,13 +252,13 @@ const buSort = async function (repArray, elementsArray) { // Buborék rendezés
 
 };
 
-const gySort = async function quickSortInside(repArray, elementsArray, low = 0, high = repArray.length - 1) {
+const gySort = async function quickSortInside(repArray, elementsArray, low = 0, high = repArray.length - 1) { // Gyors rendezés
     console.log(repArray);
     let i = low;
     let j = high;
     const pivotIndex = Math.floor((low + high) / 2);
     const pivot = repArray[pivotIndex];
-    
+
     while (i <= j) {
         while (repArray[i] < pivot) {
             i++;
