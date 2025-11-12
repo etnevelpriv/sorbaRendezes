@@ -2,7 +2,6 @@
 
 let helper;
 let elementHelper;
-let positions;
 let xi;
 let xj;
 let diffX;
@@ -13,7 +12,7 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
     console.log("repInit elindult");
 
     // Alap változók
-    const repArray = [3, 34, 10, 99, 24, 55, 9];
+    const repArray = [ 24, 55, 9];
     const sortMethods = [ecsSort, buSort, gySort, kSort, beSort];
     const container = document.getElementById("rep");
     let elementsArray = [];
@@ -74,13 +73,15 @@ const arrayUpload = (elements, elementsArray) => {
 // Elem pozíciójának lekérése
 const getPosition = function (element) {
     return {
-        x: element.dataset.x,
-        y: element.dataset.y
+        x: Number(element.dataset.x),
+        y: Number(element.dataset.y)
     };
 };
 
 // Elem pozíciójának változtatása és eltolás
 const setPosition = function (element, x, y) {
+    x = Number(x);
+    y = Number(y);
     element.dataset.x = x;
     element.dataset.y = y;
     element.style.transform = `translate(${x}px, ${y}px)`
@@ -115,13 +116,14 @@ const switchElements = async function (i, j) {
     console.log(`i pozíciója most: ${iPos.x} ${iPos.y}`);
     console.log(`j pozíciója most: ${jPos.x} ${jPos.y}`);
 
-    xi = i.offsetLeft;
-    xj = j.offsetLeft;
+    // Offset helyett ezt a beépíett függvényt használjuk innentől. https://jwood206.medium.com/positioning-with-mouse-events-offset-getboundingclientrect-and-getcomputedstyle-afe12bfcb5f
+    xi = i.getBoundingClientRect().left;
+    xj = j.getBoundingClientRect().left;
 
     diffX = xi - xj;
 
-    setPosition(i, iPos.x + diffX, iPos.y);
-    setPosition(j, jPos.x - diffX, jPos.y);
+    setPosition(i, iPos.x - diffX, iPos.y);
+    setPosition(j, jPos.x + diffX, jPos.y);
 
     await sleep(1500);
     console.log("Az elemek helyet cseréltek")
@@ -150,27 +152,20 @@ const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés 
     console.log(elementsArray);
 
     for (let i = 0; i < repArray.length - 1; i++) {
+        elementsArray[i].classList.add("inspected");
+        await sleep(700);
         for (let j = i + 1; j < repArray.length; j++) {
+
+            elementsArray[j].classList.add("inspected");
+            await sleep(700);
 
             if (repArray[i] > repArray[j]) {
 
                 console.log(`cserelendo elemek: ${elementsArray[i]} és ${elementsArray[j]}`)
 
-                positions = {
-                    iPos: {
-                        x: elementsArray[i].offsetLeft,
-                        y: elementsArray[i].offsetTop
-                    },
-
-                    jPos: {
-                        x: elementsArray[j].offsetLeft,
-                        y: elementsArray[j].offsetTop
-                    }
-                };
-
-                await moveUpElements(elementsArray[i], elementsArray[j], positions);
-                await switchElements(elementsArray[i], elementsArray[j], positions);
-                await moveDownElements(elementsArray[i], elementsArray[j], positions);
+                await moveUpElements(elementsArray[i], elementsArray[j]);
+                await switchElements(elementsArray[i], elementsArray[j]);
+                await moveDownElements(elementsArray[i], elementsArray[j]);
 
 
                 helper = repArray[i];
@@ -181,21 +176,26 @@ const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés 
                 elementsArray[i] = elementsArray[j];
                 elementsArray[j] = elementHelper;
             };
+            elementsArray[j].classList.remove("inspected");
         };
+        elementsArray[i].classList.remove("inspected");
+        elementsArray[i].classList.add("correct-position");
     };
+    elementsArray[elementsArray.length-1].classList.add("correct-position"); // https://stackoverflow.com/questions/3216013/get-the-last-item-in-an-array
+
 
     // Tényleges csere az eredeti (klónozott) tömb elemeihez
-    for (let i = 0; i < repArray.length - 1; i++) { // A ciklus annyiszor fut le, ahány vizsgált elem van -1. Azért nem futtatjuk az utolsót most, mert a mátrix következő ciklusában már vizsgáljuk az utolsó elemet.
-        for (let j = i + 1; j < repArray.length; j++) { // Második ciklus. Mindig az első ciklushoz képest a következő elem a vizsgált elemek első eleme. (nagyon sok az elem, majd átfogalmazom)
-            if (repArray[i] > repArray[j]) { // Ellenőrizzük, hogy az "i"-edik (a sorozatban korábban szereplő) elem nagyobb-e, mint a "j"-edik (a sorozatban később szereplő) elem.
-                // Ha az állítás igaz, megcseréljük a 2 elem pozícióját
-                helper = repArray[i];
-                repArray[i] = repArray[j];
-                repArray[j] = helper;
-            };
-        };
-    };
-    console.log(repArray);
+    // for (let i = 0; i < repArray.length - 1; i++) { // A ciklus annyiszor fut le, ahány vizsgált elem van -1. Azért nem futtatjuk az utolsót most, mert a mátrix következő ciklusában már vizsgáljuk az utolsó elemet.
+    //     for (let j = i + 1; j < repArray.length; j++) { // Második ciklus. Mindig az első ciklushoz képest a következő elem a vizsgált elemek első eleme. (nagyon sok az elem, majd átfogalmazom)
+    //         if (repArray[i] > repArray[j]) { // Ellenőrizzük, hogy az "i"-edik (a sorozatban korábban szereplő) elem nagyobb-e, mint a "j"-edik (a sorozatban később szereplő) elem.
+    //             // Ha az állítás igaz, megcseréljük a 2 elem pozícióját
+    //             helper = repArray[i];
+    //             repArray[i] = repArray[j];
+    //             repArray[j] = helper;
+    //         };
+    //     };
+    // };
+    // console.log(repArray);
 };
 
 const buSort = function (elements) { // Buborék rendezés
