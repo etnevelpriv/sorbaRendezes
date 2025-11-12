@@ -8,55 +8,6 @@ let diffX;
 let iPos;
 let jPos;
 
-const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvényt ebben hívom meg
-    console.log("repInit elindult");
-
-    // Alap változók
-    const repArray = [ 24, 55, 9];
-    const sortMethods = [ecsSort, buSort, gySort, kSort, beSort];
-    const container = document.getElementById("rep");
-    let elementsArray = [];
-
-    console.log("repInit for ciklus most indul");
-    // Ciklus az összes rendezési módszerhez
-    for (let i = 0; i < sortMethods.length; i++) {
-
-        // Tárolók létrehozása
-        const repContainer = document.createElement("div");
-        repContainer.classList.add("rep-container");
-        container.appendChild(repContainer);
-        const elements = document.createElement("div");
-        elements.classList.add("rep-elements");
-        repContainer.appendChild(elements);
-
-        // Tömb minden adatához saját elem
-        repArray.forEach(data => {
-            const element = document.createElement("div");
-            element.classList.add("rep-element");
-            element.textContent = data;
-            element.dataset.x = 0; // AI mondta, hogy a datasetet alkalmazzam
-            element.dataset.y = 0;
-            elements.appendChild(element);
-        });
-
-        // Az összes function új tömböt kap, hogy ne piszkálhassuk az eredetit véletlenül sem
-        const repArrayClone = [...repArray];
-
-
-        // Függvény futattásához gomb
-        const startButton = document.createElement("button");
-        startButton.classList.add("rep-button");
-        startButton.textContent = "Gomb";
-        startButton.addEventListener("click", async () => sortMethods[i](repArrayClone, arrayUpload(elements.children, elementsArray))); // Ehhez segítséget használtam, mert nem voltam tisztában az addEventListener pontos működésével: https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
-        repContainer.appendChild(startButton);
-
-        console.log(`repInit for ciklus lefutott ${i} alkalommal`);
-
-    };
-
-    console.log("repInit vége");
-};
-
 // Nem egyszerre történnek a változások. Ezt a függvényt hívjuk meg, hogyha időt szeretnék a 2 animáció közé
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -148,8 +99,59 @@ const moveDownElements = async function (i, j) {
     await sleep(1500);
 };
 
+const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvényt ebben hívom meg
+    console.log("repInit elindult");
+
+    // Alap változók
+    const repArray = [3, 13, 67, 24, 55, 9];
+    const sortMethods = [ecsSort, buSort, gySort, kSort, beSort];
+    const container = document.getElementById("rep");
+    let elementsArray = [];
+
+    console.log("repInit for ciklus most indul");
+    // Ciklus az összes rendezési módszerhez
+    for (let i = 0; i < sortMethods.length; i++) {
+
+        // Tárolók létrehozása
+        const repContainer = document.createElement("div");
+        repContainer.classList.add("rep-container");
+        container.appendChild(repContainer);
+        const elements = document.createElement("div");
+        elements.classList.add("rep-elements");
+        repContainer.appendChild(elements);
+
+        // Tömb minden adatához saját elem
+        repArray.forEach(data => {
+            const element = document.createElement("div");
+            element.classList.add("rep-element");
+            element.textContent = data;
+            element.dataset.x = 0; // AI mondta, hogy a datasetet alkalmazzam
+            element.dataset.y = 0;
+            elements.appendChild(element);
+        });
+
+        // Az összes function új tömböt kap, hogy ne piszkálhassuk az eredetit véletlenül sem
+        const repArrayClone = [...repArray];
+
+
+        // Függvény futattásához gomb
+        const startButton = document.createElement("button");
+        startButton.classList.add("rep-button");
+        startButton.textContent = "Gomb";
+        startButton.addEventListener("click", async () => sortMethods[i](repArrayClone, arrayUpload(elements.children, elementsArray))); // Ehhez segítséget használtam, mert nem voltam tisztában az addEventListener pontos működésével: https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+        repContainer.appendChild(startButton);
+
+        console.log(`repInit for ciklus lefutott ${i} alkalommal`);
+
+    };
+
+    console.log("repInit vége");
+};
+
 const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés Rendezés
     console.log(elementsArray);
+
+    // A rendezendő tömb elemein egyesével végighaladunk. Rendre megvizsgáljuk, hogy az adott helyen lévő elem milyen relációban van az utána következő elemekkel. Minden összehasonlítás után megnézzük, hogy az adott helyen lévő elem nagyobb-e a hasonlított elemnél. Ha nagyobb, akkor megcseréljük a két elemet. Ha az adott elemre vonatkozóan az összes összehasonlítással végeztünk, akkor jön a következő elem. Mindaddig folytatjuk a fenti műveletet, amíg az utolsó előtti elemmel is el nem végeztük. Négyzetes idejű algoritmus.
 
     for (let i = 0; i < repArray.length - 1; i++) {
         elementsArray[i].classList.add("inspected");
@@ -181,8 +183,7 @@ const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés 
         elementsArray[i].classList.remove("inspected");
         elementsArray[i].classList.add("correct-position");
     };
-    elementsArray[elementsArray.length-1].classList.add("correct-position"); // https://stackoverflow.com/questions/3216013/get-the-last-item-in-an-array
-
+    elementsArray[elementsArray.length - 1].classList.add("correct-position"); // https://stackoverflow.com/questions/3216013/get-the-last-item-in-an-array
 
     // Tényleges csere az eredeti (klónozott) tömb elemeihez
     // for (let i = 0; i < repArray.length - 1; i++) { // A ciklus annyiszor fut le, ahány vizsgált elem van -1. Azért nem futtatjuk az utolsót most, mert a mátrix következő ciklusában már vizsgáljuk az utolsó elemet.
@@ -195,16 +196,101 @@ const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés 
     //         };
     //     };
     // };
-    // console.log(repArray);
 };
 
-const buSort = function (elements) { // Buborék rendezés
-    console.log("Masodik");
+const buSort = async function (repArray, elementsArray) { // Buborék rendezés
+    console.log(repArray)
+
+    // Működési módja:
+    // Sorban végigmegyünk a tömb elemein, és az egymás melletti elemeket összehasonlítjuk.Mindig cserélünk, amennyiben az első elem a nagyobb.Ezáltal a legnagyobb elem a tömb végére kerül, rendezett lesz.A még nem rendezett elemekkel ugyanígy járunk el(balról jobbra haladva), mindaddig, amíg a tömbünk teljesen rendezett nem lesz.
+    // Négyzetes idejű algoritmus.
+
+    for (let i = repArray.length - 1; i > 0; i--) {
+
+        for (let j = 0; j < i; j++) {
+
+            elementsArray[j].classList.add("inspected");
+            await sleep(700);
+            elementsArray[j + 1].classList.add("inspected");
+            await sleep(700);
+
+            if (repArray[j] > repArray[j + 1]) {
+
+                console.log(`cserelendo elemek: ${elementsArray[j]} és ${elementsArray[j + 1]}`)
+
+                await moveUpElements(elementsArray[j], elementsArray[j + 1]);
+                await switchElements(elementsArray[j], elementsArray[j + 1]);
+                await moveDownElements(elementsArray[j], elementsArray[j + 1]);
+
+                helper = repArray[j + 1];
+                repArray[j + 1] = repArray[j];
+                repArray[j] = helper;
+
+                elementHelper = elementsArray[j + 1];
+                elementsArray[j + 1] = elementsArray[j];
+                elementsArray[j] = elementHelper;
+
+            };
+            elementsArray[j].classList.remove("inspected");
+            elementsArray[j + 1].classList.remove("inspected");
+
+        };
+        elementsArray[i].classList.remove("inspected");
+        elementsArray[i].classList.add("correct-position");
+    };
+
+    // Tényleges csere az eredeti (klónozott) tömb elemeihez
+    // for (let i = repArray.length - 1; i > 0; i--) { // Az utolsó elemtől indul az első ciklus és az első elemig megy
+    //     for (let j = 0; j < i; j++) { // Az első elemtől indul a második ciklus és addig fut, ameddig el nem éri az "i"-edik elemet
+    //         if (repArray[j] > repArray[j + 1]) { // Ha a "j"-edik elem nagyobb, mint a sorban utánna lévő elem, akkor megcseréljül őket.
+    //             helper = repArray[j + 1];
+    //             repArray[j + 1] = repArray[j];
+    //             repArray[j] = helper;
+    //         };
+    //     };
+    // };
+
 };
 
-const gySort = function (elements) { // Gyors rendezés
-    console.log("Harmadik");
+const gySort = async function quickSortInside(repArray, elementsArray, low = 0, high = repArray.length - 1) {
+    console.log(repArray);
+    let i = low;
+    let j = high;
+    const pivotIndex = Math.floor((low + high) / 2);
+    const pivot = repArray[pivotIndex];
+    
+    while (i <= j) {
+        while (repArray[i] < pivot) {
+            i++;
+        };
+        while (repArray[j] > pivot) {
+            j--;
+        };
+        if (i <= j) {
+
+            console.log(`cserelendo elemek: ${elementsArray[j]} és ${elementsArray[i]}`)
+
+            await moveUpElements(elementsArray[j], elementsArray[i]);
+            await switchElements(elementsArray[j], elementsArray[i]);
+            await moveDownElements(elementsArray[j], elementsArray[i]);
+
+            helper = repArray[i];
+            repArray[i] = repArray[j];
+            repArray[j] = helper;
+
+            elementHelper = elementsArray[i];
+            elementsArray[i] = elementsArray[j];
+            elementsArray[j] = elementHelper;
+            i++;
+            j--;
+        };
+    };
+
+    if (low < j) quickSortInside(repArray, elementsArray, low, j);
+    if (i < high) quickSortInside(repArray, elementsArray, i, high);
+    console.log(repArray);
 };
+
 
 const kSort = function (elements) { // Kiválasztásos rendezés
     console.log("Negyedik");

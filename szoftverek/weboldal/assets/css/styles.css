@@ -41,14 +41,8 @@ body {
     color: var(--dark);
 }
 
-@keyframes mozgasFel {
-    0% {
-        top: 0
-    }
-
-    100% {
-        top: -50px
-    }
+.pivot {
+    background-color: var(--grey);
 }
 
 /* Adatok stílusai */
