@@ -1,9 +1,7 @@
 "use strict"; // Jobb hibakezelés miatt
 
-let dataArray;
-let dataObj;
-
 let helper;
+let positions;
 let xi;
 let xj;
 
@@ -14,6 +12,7 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
     const repArray = [3, 34, 10, 99, 24, 55, 9];
     const sortMethods = [ecsSort, buSort, gySort, kSort, beSort];
     const container = document.getElementById("rep");
+    let elementsArray = [];
 
     console.log("repInit for ciklus most indul");
     // Ciklus az összes rendezési módszerhez
@@ -36,13 +35,14 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
         });
 
         // Az összes function új tömböt kap, hogy ne piszkálhassuk az eredetit véletlenül sem
-        let repArrayClone = repArray;
+        const repArrayClone = [...repArray];
+
 
         // Függvény futattásához gomb
         const startButton = document.createElement("button");
         startButton.classList.add("rep-button");
         startButton.textContent = "Gomb";
-        startButton.addEventListener("click", () => sortMethods[i](elements, repArrayClone)); // Ehhez segítséget használtam, mert nem voltam tisztában az addEventListener pontos működésével: https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+        startButton.addEventListener("click", async () => sortMethods[i](repArrayClone, arrayUpload(elements.children, elementsArray))); // Ehhez segítséget használtam, mert nem voltam tisztában az addEventListener pontos működésével: https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
         repContainer.appendChild(startButton);
 
         console.log(`repInit for ciklus lefutott ${i} alkalommal`);
@@ -52,36 +52,94 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
     console.log("repInit vége");
 };
 
-const ecsSort = function (elements, repArray) { // Egyszerű Cserés Rendezés
+// Nem egyszerre történnek a változások. Ezt a függvényt hívjuk meg, hogyha időt szeretnék a 2 animáció közé
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-    // Vizuális csere, mivel DOM elemeket nem lehet módosítani csak így (meglehetne oldani, de most nem ez a cél)
-    elements = elements.children; // Nem tudtam, hogy lehet ilyet, dokumentációt használtam: https://www.w3schools.com/jsref/prop_element_childelementcount.asp 
-    for (let i = 0; i < elements.length - 1; i++) {
-        for (let j = i + 1; j < elements.length; j++) {
-            if (elements[i].innerHTML > elements[j].innerHTML) {
+// Saját tömböt kap mindegyik módszer (az elemekről), különben csak a legutolsó létezne
+const arrayUpload = (elements, elementsArray) => {
+    elementsArray.length = 0; // Kiürítjük a listát
+    for (let j = 0; j < elements.length; j++) {
+        elementsArray.push(elements[j]); // Feltöltjük az elemeket
+    };
+    return elementsArray;
+};
 
-                xi = elements[i].offsetLeft;
-                xj = elements[j].offsetLeft;
+const moveUpElements = async (i, j, positions) => {
+    console.log(i);
+    console.log(j);
+    console.log(`i pozíciója most: ${positions.iPos.x} ${positions.iPos.y}`);
+    console.log(`j pozíciója most: ${positions.jPos.x} ${positions.jPos.y}`);
 
-                setTimeout(() => {
-                    elements[i].style.transform = "translateY(-50px)";
-                    elements[j].style.transform = "translateY(-50px)";
+    positions.iPos.y += 50;
+    positions.jPos.y += 50;
 
-                    setTimeout(() => {
-                        elements[i].style.transform = `${xj - xi}px`;
-                        elements[j].style.transform = `${xi - xj}px`;
+    i.style.transform = `translateY(${positions.iPos.y}px)`;
+    j.style.transform = `translateY(${positions.jPos.y}px)`;
 
-                        setTimeout(() => {
-                            elements[i].style.transform = "translateY(50px)";
-                            elements[j].style.transform = "translateY(50px)";
-                        }, 300);
-                    }, 300);
-                }, 300);
+    await sleep(1000);
+};
 
-                helper = elements[i].innerHTML;
-                elements[i] = elements[j];
-                elements[j].innerHTML = helper;
+const switchElements = async (i, j, positions) => {
+    console.log(i);
+    console.log(j);
+    console.log(`i pozíciója most: ${positions.iPos.x} ${positions.iPos.y}`);
+    console.log(`j pozíciója most: ${positions.jPos.x} ${positions.jPos.y}`);
 
+    xi = i.offsetLeft;
+    xj = j.offsetLeft;
+
+    positions.iPos.x = positions.iPos.x + (xj - xi);
+    positions.jPos.x = positions.jPos.x + (xi - xj);
+
+    j.style.transform = `translateX(${positions.iPos.x}px)`;
+    i.style.transform = `translateX(${positions.jPos.x}px)`;
+
+    await sleep(1000);
+};
+
+const moveDownElements = async (i, j, positions) => {
+    console.log(i);
+    console.log(j);
+
+    positions.iPos.y -= 50;
+    positions.jPos.y -= 50;
+
+    i.style.transform = `translateY(${positions.iPos.y}px)`;
+    j.style.transform = `translateY(${positions.jPos.y}px)`;
+
+    await sleep(1000);
+};
+
+const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés Rendezés
+    console.log(elementsArray);
+
+    for (let i = 0; i < repArray.length - 1; i++) {
+        for (let j = i + 1; j < repArray.length; j++) {
+
+            if (repArray[i] > repArray[j]) {
+
+                console.log(`cserelendo elemek: ${elementsArray[i]} és ${elementsArray[j]}`)
+
+                positions = {
+                    iPos: {
+                        x: elementsArray[i].offsetLeft,
+                        y: elementsArray[i].offsetTop
+                    },
+
+                    jPos: {
+                        x: elementsArray[j].offsetLeft,
+                        y: elementsArray[j].offsetTop
+                    }
+                };
+
+                await moveUpElements(elementsArray[i], elementsArray[j], positions);
+                await switchElements(elementsArray[i], elementsArray[j], positions);
+                await moveDownElements(elementsArray[i], elementsArray[j], positions);
+
+
+                helper = repArray[i];
+                repArray[i] = repArray[j];
+                repArray[j] = helper;
             };
         };
     };
