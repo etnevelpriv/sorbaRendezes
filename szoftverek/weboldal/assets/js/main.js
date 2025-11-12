@@ -1,9 +1,13 @@
 "use strict"; // Jobb hibakezelés miatt
 
 let helper;
+let elementHelper;
 let positions;
 let xi;
 let xj;
+let diffX;
+let iPos;
+let jPos;
 
 const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvényt ebben hívom meg
     console.log("repInit elindult");
@@ -31,6 +35,8 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
             const element = document.createElement("div");
             element.classList.add("rep-element");
             element.textContent = data;
+            element.dataset.x = 0; // AI mondta, hogy a datasetet alkalmazzam
+            element.dataset.y = 0;
             elements.appendChild(element);
         });
 
@@ -64,50 +70,80 @@ const arrayUpload = (elements, elementsArray) => {
     return elementsArray;
 };
 
-const moveUpElements = async (i, j, positions) => {
-    console.log(i);
-    console.log(j);
-    console.log(`i pozíciója most: ${positions.iPos.x} ${positions.iPos.y}`);
-    console.log(`j pozíciója most: ${positions.jPos.x} ${positions.jPos.y}`);
-
-    positions.iPos.y += 50;
-    positions.jPos.y += 50;
-
-    i.style.transform = `translateY(${positions.iPos.y}px)`;
-    j.style.transform = `translateY(${positions.jPos.y}px)`;
-
-    await sleep(1000);
+// Ez a kettő függvény arra van, hogy mindig újrageneráljuk az aktuális pozíciót és ahhoz képest tudjunk eltolást végezni megfelelően.
+// Elem pozíciójának lekérése
+const getPosition = function (element) {
+    return {
+        x: element.dataset.x,
+        y: element.dataset.y
+    };
 };
 
-const switchElements = async (i, j, positions) => {
+// Elem pozíciójának változtatása és eltolás
+const setPosition = function (element, x, y) {
+    element.dataset.x = x;
+    element.dataset.y = y;
+    element.style.transform = `translate(${x}px, ${y}px)`
+};
+
+// Elem felfelé tolása
+const moveUpElements = async function (i, j) {
     console.log(i);
     console.log(j);
-    console.log(`i pozíciója most: ${positions.iPos.x} ${positions.iPos.y}`);
-    console.log(`j pozíciója most: ${positions.jPos.x} ${positions.jPos.y}`);
+
+    iPos = getPosition(i);
+    jPos = getPosition(j);
+
+    console.log(`i pozíciója most: ${iPos.x} ${iPos.y}`);
+    console.log(`j pozíciója most: ${jPos.x} ${jPos.y}`);
+
+    setPosition(i, iPos.x, iPos.y - 50);
+    setPosition(j, jPos.x, jPos.y - 50);
+
+    console.log("Az elemek feltolódtak")
+    await sleep(1500);
+};
+
+// Elemek cseréje
+const switchElements = async function (i, j) {
+    console.log(i);
+    console.log(j);
+
+    iPos = getPosition(i);
+    jPos = getPosition(j);
+
+    console.log(`i pozíciója most: ${iPos.x} ${iPos.y}`);
+    console.log(`j pozíciója most: ${jPos.x} ${jPos.y}`);
 
     xi = i.offsetLeft;
     xj = j.offsetLeft;
 
-    positions.iPos.x = positions.iPos.x + (xj - xi);
-    positions.jPos.x = positions.jPos.x + (xi - xj);
+    diffX = xi - xj;
 
-    j.style.transform = `translateX(${positions.iPos.x}px)`;
-    i.style.transform = `translateX(${positions.jPos.x}px)`;
+    setPosition(i, iPos.x + diffX, iPos.y);
+    setPosition(j, jPos.x - diffX, jPos.y);
 
-    await sleep(1000);
+    await sleep(1500);
+    console.log("Az elemek helyet cseréltek")
 };
 
-const moveDownElements = async (i, j, positions) => {
+// Elemek lefelé tolása
+const moveDownElements = async function (i, j) {
     console.log(i);
     console.log(j);
 
-    positions.iPos.y -= 50;
-    positions.jPos.y -= 50;
+    iPos = getPosition(i);
+    jPos = getPosition(j);
 
-    i.style.transform = `translateY(${positions.iPos.y}px)`;
-    j.style.transform = `translateY(${positions.jPos.y}px)`;
+    console.log(`i pozíciója most: ${iPos.x} ${iPos.y}`);
+    console.log(`j pozíciója most: ${jPos.x} ${jPos.y}`);
 
-    await sleep(1000);
+    setPosition(i, iPos.x, iPos.y + 50);
+    setPosition(j, jPos.x, jPos.y + 50);
+
+    console.log("Az elemek visszatolódtak")
+
+    await sleep(1500);
 };
 
 const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés Rendezés
@@ -140,6 +176,10 @@ const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés 
                 helper = repArray[i];
                 repArray[i] = repArray[j];
                 repArray[j] = helper;
+
+                elementHelper = elementsArray[i];
+                elementsArray[i] = elementsArray[j];
+                elementsArray[j] = elementHelper;
             };
         };
     };
