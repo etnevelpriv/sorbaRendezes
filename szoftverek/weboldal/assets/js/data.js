@@ -1,9 +1,12 @@
 "use strict";
 
+
+
 // Generál tömböket és azokat egyből meg is adja paraméternek az összes módszer esetében 5 alkalommal
 const init = function () {
     const sortMethods = [ecsSort, buSort, gySort];
     const dataArray = [];
+    const allDataArray = [];
     let randomSzam;
     // console.log("fuggveny betoltott")
     for (let i = 1; i < 10000; i = i * 10) {
@@ -16,13 +19,24 @@ const init = function () {
         };
         for (let i = 0; i < sortMethods.length; i++) {
             for (let f = 0; f < 5; f++) {
-                sortMethods[i](dataArray);
+                sortMethods[i](dataArray, allDataArray);
             };
         };
     };
+    console.log(allDataArray)
 };
 
-const ecsSort = function (dataArray) { // Egyszerű Cserés Rendezés méréssel
+const dataPushToArray = function (arrayLength, elapsedTime, methodName, allDataArray) {
+    allDataArray.push(
+        {
+            adatokSzama: arrayLength,
+            ido: elapsedTime,
+            modszer: methodName
+        }
+    );
+};
+
+const ecsSort = function (dataArray, allDataArray) { // Egyszerű Cserés Rendezés méréssel
     const arr = dataArray.slice();
     let helper;
 
@@ -41,11 +55,14 @@ const ecsSort = function (dataArray) { // Egyszerű Cserés Rendezés méréssel
 
     const end = performance.now();
     const elapsedMs = Number((end - start).toFixed(10));
+
+    dataPushToArray(arr.length, elapsedMs, "Egyszerű cserés rendezés", allDataArray)
+
     console.log(`Egyszerű cserés rendezés ideje ${arr.length} számú elemmel: ${elapsedMs}. Ellenőrzés: első elem: ${arr[0]} és az utolsó elem: ${arr[arr.length - 1]}`);
 
 };
 
-const buSort = function (dataArray) { // Buborék rendezés
+const buSort = function (dataArray, allDataArray) { // Buborék rendezés
     const arr = dataArray.slice();
     let helper;
     const start = performance.now();
@@ -62,46 +79,53 @@ const buSort = function (dataArray) { // Buborék rendezés
 
     const end = performance.now();
     const elapsedMs = Number((end - start).toFixed(10));
+
+    dataPushToArray(arr.length, elapsedMs, "Buborékos rendezés", allDataArray)
+
     console.log(`Buborékos rendezés ideje ${arr.length} számú elemmel: ${elapsedMs}. Ellenőrzés: első elem: ${arr[0]} és az utolsó elem: ${arr[arr.length - 1]}`);
 };
 
-const gySort = async function quickSortInside(dataArray) { // Gyors rendezés
+const gySort = async function quickSortInside(dataArray, allDataArray) { // Gyors rendezés
+    const arr = dataArray.slice();
 
-    const gySortInside = function gySortInsideRekurzio(dataArray, low, high) { // Gyors rendezés
+    const gySortInside = function gySortInsideRekurzio(arr, low, high) { // Gyors rendezés
         let i = low;
         let j = high;
         let helper;
         const pivotIndex = Math.floor((low + high) / 2);
-        const pivot = dataArray[pivotIndex];
+        const pivot = arr[pivotIndex];
 
         while (i <= j) {
-            while (dataArray[i] < pivot) {
+            while (arr[i] < pivot) {
                 i++;
             };
-            while (dataArray[j] > pivot) {
+            while (arr[j] > pivot) {
                 j--;
             };
             if (i <= j) {
 
-                helper = dataArray[i];
-                dataArray[i] = dataArray[j];
-                dataArray[j] = helper;
+                helper = arr[i];
+                arr[i] = arr[j];
+                arr[j] = helper;
 
                 i++;
                 j--;
             };
         };
 
-        if (low < j) gySortInsideRekurzio(dataArray, low, j);
-        if (i < high) gySortInsideRekurzio(dataArray, i, high);
+        if (low < j) gySortInsideRekurzio(arr, low, j);
+        if (i < high) gySortInsideRekurzio(arr, i, high);
     };
 
     const start = performance.now();
-    gySortInside(dataArray, 0, dataArray.length - 1);
+    gySortInside(arr, 0, arr.length - 1);
 
     const end = performance.now();
     const elapsedMs = Number((end - start).toFixed(10));
-    console.log(`Gyors rendezés ideje ${dataArray.length} számú elemmel: ${elapsedMs}. Ellenőrzés: első elem: ${dataArray[0]} és az utolsó elem: ${dataArray[dataArray.length - 1]}`);
+
+    dataPushToArray(arr.length, elapsedMs, "Gyors rendezés", allDataArray)
+
+    console.log(`Gyors rendezés ideje ${arr.length} számú elemmel: ${elapsedMs}. Ellenőrzés: első elem: ${arr[0]} és az utolsó elem: ${arr[arr.length - 1]}`);
 };
 
 init();
