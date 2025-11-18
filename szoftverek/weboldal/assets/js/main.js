@@ -104,7 +104,7 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
 
     // Alap változók
     const repArray = [3, 13, 67, 24, 55, 9];
-    const sortMethods = [ecsSort, buSort, gySort, kSort, beSort];
+    const sortMethods = [ecsSort, buSort, gySort, beSort, mSort];
     const container = document.getElementById("rep");
     let elementsArray = [];
 
@@ -148,7 +148,7 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
     console.log("repInit vége");
 };
 
-const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés Rendezés
+const ecsSort = async function (repArray, elementsArray) { // Egyszerű Cserés (Kiválasztásos) Rendezés
     console.log(elementsArray);
 
     // A rendezendő tömb elemein egyesével végighaladunk. Rendre megvizsgáljuk, hogy az adott helyen lévő elem milyen relációban van az utána következő elemekkel. Minden összehasonlítás után megnézzük, hogy az adott helyen lévő elem nagyobb-e a hasonlított elemnél. Ha nagyobb, akkor megcseréljük a két elemet. Ha az adott elemre vonatkozóan az összes összehasonlítással végeztünk, akkor jön a következő elem. Mindaddig folytatjuk a fenti műveletet, amíg az utolsó előtti elemmel is el nem végeztük. Négyzetes idejű algoritmus.
@@ -292,12 +292,90 @@ const gySort = async function quickSortInside(repArray, elementsArray, low = 0, 
 };
 
 
-const kSort = function (elements) { // Kiválasztásos rendezés
-    console.log("Negyedik");
+const beSort = async function (repArray, elementsArray) { // Beszúrásos rendezés
+    // https://www.geeksforgeeks.org/javascript/sorting-algorithms-in-javascript/
+    // Ezt találtam, innen másoltam ki, majd módosítottam
+    console.log("besort eleje:" + repArray);
+    for (let i = 1; i < repArray.length; i++) {
+
+        helper = repArray[i];
+        elementHelper = elementsArray[i];
+        let j = i - 1;
+
+        while (j >= 0 && repArray[j] > helper) {
+
+            console.log(`cserelendo elemek: ${elementsArray[j]} és ${elementsArray[i]}`);
+
+            await moveUpElements(elementsArray[j], elementsArray[j + 1]);
+            await switchElements(elementsArray[j], elementsArray[j + 1]);
+            await moveDownElements(elementsArray[j], elementsArray[j + 1]);
+
+            let extraHelper = repArray[j];
+            repArray[j] = repArray[j + 1];
+            repArray[j + 1] = extraHelper;
+
+            let extraHelperElements = elementsArray[j];
+            elementsArray[j] = elementsArray[j + 1];
+            elementsArray[j + 1] = extraHelperElements;
+
+            j--;
+        };
+
+        repArray[j + 1] = helper;
+        elementsArray[j + 1] = elementHelper;
+    };
+    console.log("besort vege:" + repArray);
+
+    // Tényleges csere az eredeti (klónozott) tömb elemeihez
+    // for (let i = 1; i < repArray.length; i++) {
+    //     helper = repArray[i];
+    //     let j = i - 1;
+    //     while (j >= 0 && repArray[j] > helper) {
+    //         repArray[j + 1] = repArray[j];
+    //         j--;
+    //     };
+    //     repArray[j + 1] = helper;
+    // };
+
 };
 
-const beSort = function (elements) { // Beszúrásos rendezés
-    console.log("Otodik");
-};
+// const mSort = function (arr) { // Összeolvadásos rendezés
+// https://www.geeksforgeeks.org/javascript/sorting-algorithms-in-javascript/
+// Az alap kódot innen vettem ki, működött alapból is, de nem értettem, hogy miért. Majd holnap megpróbálom megérteni, addig is AI-al megpróbáltattam elmagyarázni, hogy miért működik, ezt a kódot küldte vissza
+//     console.log("Érkezett:", arr);
+
+//     const merge = function mergeInside(left, right) {
+//         let result = [];
+//         let i = 0;
+//         let j = 0;
+
+//         while (i < left.length && j < right.length) {
+//             if (left[i] < right[j]) {
+//                 result.push(left[i]);
+//                 i++;
+//             } else {
+//                 result.push(right[j]);
+//                 j++;
+//             }
+//         }
+
+//         return result.concat(left.slice(i), right.slice(j));
+//     };
+
+//     if (arr.length <= 1) {
+//         console.log("Visszatér (base case):", arr);
+//         return arr;
+//     }
+
+//     const mid = Math.floor(arr.length / 2);
+//     const left = mSort(arr.slice(0, mid));
+//     const right = mSort(arr.slice(mid));
+
+//     const merged = merge(left, right);
+//     console.log("Összefésülve:", merged);
+
+//     return merged;
+// };
+
 
 repInit();

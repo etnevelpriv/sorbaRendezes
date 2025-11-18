@@ -1,21 +1,19 @@
 "use strict";
 
-
-
 // Generál tömböket és azokat egyből meg is adja paraméternek az összes módszer esetében 5 alkalommal
 const init = function () {
     const sortMethods = [ecsSort, buSort, gySort];
     const dataArray = [];
     const allDataArray = [];
-    let randomSzam;
+    let randomNumber;
     // console.log("fuggveny betoltott")
     for (let i = 1; i < 10000; i = i * 10) {
         // console.log("For i ciklus lefutott: " + i)
         dataArray.length = 0;
         for (let j = 0; j < i * 10; j++) {
             // console.log("For j ciklus lefutott: " + j)
-            randomSzam = Math.floor(Math.random() * 1000000) + 1;
-            dataArray.push(randomSzam)
+            randomNumber = Math.floor(Math.random() * 1000000) + 1;
+            dataArray.push(randomNumber)
         };
         for (let i = 0; i < sortMethods.length; i++) {
             for (let f = 0; f < 5; f++) {
