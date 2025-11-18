@@ -104,7 +104,52 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
 
     // Alap változók
     const repArray = [3, 13, 67, 24, 55, 9];
-    const sortMethods = [ecsSort, buSort, gySort, beSort, mSort];
+    // const sortMethods = [ecsSort, buSort, gySort, beSort, mSort];
+    const sortMethods = [
+        [
+            ecsSort,
+            `
+            for (let i = 0; i < repArray.length - 1; i++) { // A ciklus annyiszor fut le, ahány vizsgált elem van -1. Azért nem futtatjuk az utolsót most, mert a mátrix következő ciklusában már vizsgáljuk az utolsó elemet.
+                for (let j = i + 1; j < repArray.length; j++) { // Második ciklus. Mindig az első ciklushoz képest a következő elem a vizsgált elemek első eleme. (nagyon sok az elem, majd átfogalmazom)
+                    if (repArray[i] > repArray[j]) { // Ellenőrizzük, hogy az "i"-edik (a sorozatban korábban szereplő) elem nagyobb-e, mint a "j"-edik (a sorozatban később szereplő) elem.
+                        // Ha az állítás igaz, megcseréljük a 2 elem pozícióját
+                        helper = repArray[i];
+                        repArray[i] = repArray[j];
+                        repArray[j] = helper;
+                    };
+                };
+            };
+            `
+
+        ],
+        [
+            buSort,
+            `
+            for (let i = repArray.length - 1; i > 0; i--) { // Az utolsó elemtől indul az első ciklus és az első elemig megy
+                for (let j = 0; j < i; j++) { // Az első elemtől indul a második ciklus és addig fut, ameddig el nem éri az "i"-edik elemet
+                    if (repArray[j] > repArray[j + 1]) { // Ha a "j"-edik elem nagyobb, mint a sorban utánna lévő elem, akkor megcseréljül őket.
+                        helper = repArray[j + 1];
+                        repArray[j + 1] = repArray[j];
+                        repArray[j] = helper;
+                    };
+                };
+            };
+            `
+        ],
+        [
+            gySort,
+            ``
+        ],
+        [
+            beSort,
+            ``
+        ]
+        // [
+        //     mSort,
+        //     ``
+        // ]
+    ];
+
     const container = document.getElementById("rep");
     let elementsArray = [];
 
@@ -138,7 +183,7 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
         const startButton = document.createElement("button");
         startButton.classList.add("rep-button");
         startButton.textContent = "Gomb";
-        startButton.addEventListener("click", async () => sortMethods[i](repArrayClone, arrayUpload(elements.children, elementsArray))); // Ehhez segítséget használtam, mert nem voltam tisztában az addEventListener pontos működésével: https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+        startButton.addEventListener("click", async () => sortMethods[i][0](repArrayClone, arrayUpload(elements.children, elementsArray))); // Ehhez segítséget használtam, mert nem voltam tisztában az addEventListener pontos működésével: https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
         repContainer.appendChild(startButton);
 
         console.log(`repInit for ciklus lefutott ${i} alkalommal`);
