@@ -108,20 +108,20 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
     const sortMethods = [
         [
             ecsSort,
-            `\n
-            for (let i = 0; i < repArray.length - 1; i++) {\n
-            // A ciklus annyiszor fut le, ahány vizsgált elem van -1. Azért nem futtatjuk az utolsót most, mert a mátrix következő ciklusában már vizsgáljuk az utolsó elemet.\n
-                for (let j = i + 1; j < repArray.length; j++) {\n
-                // Második ciklus. Mindig az első ciklushoz képest a következő elem a vizsgált elemek első eleme. (nagyon sok az elem, majd átfogalmazom)\n
-                    if (repArray[i] > repArray[j]) {\n
-                    // Ellenőrizzük, hogy az "i"-edik (a sorozatban korábban szereplő) elem nagyobb-e, mint a "j"-edik (a sorozatban később szereplő) elem.\n
-                        // Ha az állítás igaz, megcseréljük a 2 elem pozícióját\n
-                        helper = repArray[i];\n
-                        repArray[i] = repArray[j];\n
-                        repArray[j] = helper;\n
-                    };\n
-                };\n
-            };\n
+            `
+            for (let i = 0; i < repArray.length - 1; i++) {
+            // A ciklus annyiszor fut le, ahány vizsgált elem van -1. Az utolső elemet a második ciklusban futtatjuk.
+                for (let j = i + 1; j < repArray.length; j++) {
+                // Második ciklus. Mindig az első ciklushoz képest a következő elem a vizsgált elemek első eleme.
+                    if (repArray[i] > repArray[j]) {
+                    // Ellenőrizzük, hogy az "i"-edik elem nagyobb-e, mint a "j"-edik elem.
+                        // Ha az állítás igaz, megcseréljük a 2 elem pozícióját
+                        helper = repArray[i];
+                        repArray[i] = repArray[j];
+                        repArray[j] = helper;
+                    };
+                };
+            };
             `,
             "Egyszerű cserés rendezés",
             "A rendezendő tömb elemein egyesével végighaladunk.\nRendre megvizsgáljuk, hogy az adott helyen lévő elem milyen relációban van az utána következő elemekkel.\nMinden összehasonlítás után megnézzük, hogy az adott helyen lévő elem nagyobb-e a hasonlított elemnél.\nHa nagyobb, akkor megcseréljük a két elemet.\nHa az adott elemre vonatkozóan az összes összehasonlítással végeztünk, akkor jön a következő elem.\nMindaddig folytatjuk a fenti műveletet, amíg az utolsó előtti elemmel is el nem végeztük.",
@@ -129,19 +129,19 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
         ],
         [
             buSort,
-            `\n
-            for (let i = repArray.length - 1; i > 0; i--) {\n
-            // Az utolsó elemtől indul az első ciklus és az első elemig megy\n
-                for (let j = 0; j < i; j++) {\n
-                // Az első elemtől indul a második ciklus és addig fut, ameddig el nem éri az "i"-edik elemet\n
-                    if (repArray[j] > repArray[j + 1]) {\n
-                    // Ha a "j"-edik elem nagyobb, mint a sorban utánna lévő elem, akkor megcseréljül őket.\n
-                        helper = repArray[j + 1];\n
-                        repArray[j + 1] = repArray[j];\n
-                        repArray[j] = helper;\n
-                    };\n
-                };\n
-            };\n
+            `
+            for (let i = repArray.length - 1; i > 0; i--) {
+            // Az utolsó elemtől indul az első ciklus és az első elemig megy
+                for (let j = 0; j < i; j++) {
+                // Az első elemtől indul a második ciklus és addig fut, ameddig el nem éri az "i"-edik elemet
+                    if (repArray[j] > repArray[j + 1]) {
+                    // Ha a "j"-edik elem nagyobb, mint a sorban utánna lévő elem, akkor megcseréljül őket.
+                        helper = repArray[j + 1];
+                        repArray[j + 1] = repArray[j];
+                        repArray[j] = helper;
+                    };
+                };
+            };
             `,
             "Buborékos rendezés",
             "Sorban végigmegyünk a tömb elemein, és az egymás melletti elemeket összehasonlítjuk.\nMindig cserélünk, amennyiben az első elem a nagyobb. Ezáltal a legnagyobb elem a tömb végére kerül, rendezett lesz.\nA még nem rendezett elemekkel ugyanígy járunk el (balról jobbra haladva), mindaddig, amíg a tömbünk teljesen rendezett nem lesz.",
@@ -149,16 +149,101 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
         ],
         [
             gySort,
-            ``
-        ],
+            `
+            const gySort = function quickSortInside(repArray, low = 0, high = repArray.length - 1) {
+            // Gyorsrendezés. Felosztás (partition) + rekurzió.
+
+                let i = low;
+                let j = high;
+
+                const pivotIndex = Math.floor((low + high) / 2);
+                // A vezérelem (pivot) a középső index.
+
+                const pivot = repArray[pivotIndex];
+                // A pivot értékét elmentjük.
+
+                while (i <= j) {
+                // Addig mozgatjuk a két mutatót, amíg át nem lépik egymást.
+
+                    while (repArray[i] < pivot) {
+                    // Balról keresünk olyan elemet, amely nem kisebb a pivottól.
+                        i++;
+                    };
+
+                    while (repArray[j] > pivot) {
+                    // Jobbról keresünk olyan elemet, amely nem nagyobb a pivottól.
+                        j--;
+                    };
+
+                    if (i <= j) {
+                    // Ha még nem keresztezték egymást, cserélünk.
+                        helper = repArray[i];
+                        repArray[i] = repArray[j];
+                        repArray[j] = helper;
+                        i++;
+                        j--;
+                    };
+                };
+
+                // Rendezés rekurzívan a két részre osztott tömbben.
+                if (low < j) quickSortInside(repArray, low, j);
+                if (i < high) quickSortInside(repArray, i, high);
+            };
+            `,
+            "Gyors rendezés",
+            "Válasszuk ki a tömb középső elemét vezérelemnek.\nBalról haladunk a pivotig, jobbról visszafelé, és megkeressük az első olyan elemeket, amelyek nincsenek jó oldalon.\nEzeket megcseréljük, majd folytatjuk, amíg a mutatók át nem lépik egymást.\nA felosztás után rekurzívan rendezzük a bal és a jobb részt, amíg egyelemű szakaszokra nem esik a tömb.",
+            "Logaritmus idejű algoritmus"
+        ]
+        ,
         [
             beSort,
-            ``
+            `
+            for (let i = 1; i < repArray.length; i++) {
+            // A második elemtől indulunk, mivel az első elemet önmagában rendezettnek tekintjük.
+                helper = repArray[i];
+                // Elmentjük az aktuális elemet, melyet a megfelelő helyre szeretnénk "beszúrni".
+
+                let j = i - 1;
+                // A "j" az előző elemet jelöli, innen indulunk visszafelé.
+
+                while (j >= 0 && repArray[j] > helper) {
+                // Addig haladunk visszafelé, amíg a vizsgált előző elem nagyobb,
+                // mint a beszúrandó elem, illetve amíg van még elem balra.
+                    repArray[j + 1] = repArray[j];
+                    // Toljuk jobbra az elemet, hogy helyet csináljunk a beszúrásnak.
+                    j--;
+                };
+
+                repArray[j + 1] = helper;
+                // Ha megtaláltuk a megfelelő pozíciót (vagy elértük a tömb elejét),
+                // akkor beszúrjuk a helper értéket.
+            };
+            `,
+            "Beszúrásos rendezés",
+            "A tömb bal oldali részét folyamatosan rendezettnek tekintjük.\nAz aktuális elemet kimentjük, majd visszafelé haladva megkeressük a helyét a már rendezett részben.\nA nagyobb elemeket jobbra toljuk, így keletkezik hely a beszúrandó elem számára.\nA folyamatot ismételjük minden elemre, így a balról jobbra épített rész egyre hosszabb és rendezett marad.",
+            "Négyzetes idejű algoritmus"
+        ],
+        [
+            fkSort,
+            `
+            for (let i = repArray.length - 1; i > 0; i--) {
+            // A ciklus az utolsó elemtől indul és a második elemig megy.
+                for (let j = i - 1; j >= 0; j--) {
+                // Második ciklus. Mindig az első ciklushoz képest a következő elem a vizsgált elemek első eleme.
+                    if (repArray[i] < repArray[j]) {
+                    // Ellenőrizzük, hogy az "i"-edik elem nagyobb-e, mint aj "j"-edik elem.
+                        // Ha az állítás igaz, megcseréljük a 2 elem pozícióját
+                        helper = repArray[i];
+                        repArray[i] = repArray[j];
+                        repArray[j] = helper;
+                    };
+                };
+            };
+            `,
+            "Fordított kiválasztásos rendezés",
+            "A rendezendő tömb elemein egyesével végighaladunk.\nRendre megvizsgáljuk, hogy az adott helyen lévő elem milyen relációban van az előtte lévő elemekkel.\nMinden összehasonlítás után megnézzük, hogy az adott helyen lévő elem nagyobb-e a hasonlított elemnél.\nHa nagyobb, akkor megcseréljük a két elemet.\nHa az adott elemre vonatkozóan az összes összehasonlítással végeztünk, akkor jön a következő elem.\nMindaddig folytatjuk a fenti műveletet, amíg az első indexű elemmel is el nem végeztük.",
+            "Négyzetes idejű algoritmus"
         ]
-        // [
-        //     mSort,
-        //     ``
-        // ]
     ];
 
     const container = document.getElementById("rep");
@@ -407,6 +492,32 @@ const gySort = async function quickSortInside(repArray, elementsArray, low = 0, 
     if (i < high) quickSortInside(repArray, elementsArray, i, high);
     console.log(repArray);
 };
+// Tényleges csere az eredeti (klónozott) tömb elemeihez
+// const gySort = function quickSortInside(repArray, low = 0, high = repArray.length - 1) { // Gyors rendezés
+//     console.log(repArray);
+//     let i = low;
+//     let j = high;
+//     const pivotIndex = Math.floor((low + high) / 2);
+//     const pivot = repArray[pivotIndex];
+//     while (i <= j) {
+//         while (repArray[i] < pivot) {
+//             i++;
+//         };
+//         while (repArray[j] > pivot) {
+//             j--;
+//         };
+//         if (i <= j) {
+//             helper = repArray[i];
+//             repArray[i] = repArray[j];
+//             repArray[j] = helper;
+//             i++;
+//             j--;
+//         };
+//     };
+//     if (low < j) quickSortInside(repArray, low, j);
+//     if (i < high) quickSortInside(repArray, i, high);
+//     console.log(repArray);
+// };
 
 
 const beSort = async function (repArray, elementsArray) { // Beszúrásos rendezés
@@ -456,43 +567,53 @@ const beSort = async function (repArray, elementsArray) { // Beszúrásos rendez
 
 };
 
-// const mSort = function (arr) { // Összeolvadásos rendezés
-// https://www.geeksforgeeks.org/javascript/sorting-algorithms-in-javascript/
-// Az alap kódot innen vettem ki, működött alapból is, de nem értettem, hogy miért. Majd holnap megpróbálom megérteni, addig is AI-al megpróbáltattam elmagyarázni, hogy miért működik, ezt a kódot küldte vissza
-//     console.log("Érkezett:", arr);
+const fkSort = async function (repArray, elementsArray) { // Fordított kiválasztásos rendezés
+    console.log(elementsArray);
 
-//     const merge = function mergeInside(left, right) {
-//         let result = [];
-//         let i = 0;
-//         let j = 0;
+    for (let i = repArray.length - 1; i > 0; i--) {
+        elementsArray[i].classList.add("inspected");
+        await sleep(700);
+        for (let j = i - 1; j >= 0; j--) {
 
-//         while (i < left.length && j < right.length) {
-//             if (left[i] < right[j]) {
-//                 result.push(left[i]);
-//                 i++;
-//             } else {
-//                 result.push(right[j]);
-//                 j++;
-//             }
-//         }
+            elementsArray[j].classList.add("inspected");
+            await sleep(700);
 
-//         return result.concat(left.slice(i), right.slice(j));
-//     };
+            if (repArray[i] < repArray[j]) {
 
-//     if (arr.length <= 1) {
-//         console.log("Visszatér (base case):", arr);
-//         return arr;
-//     }
+                console.log(`cserelendo elemek: ${elementsArray[i]} és ${elementsArray[j]}`)
 
-//     const mid = Math.floor(arr.length / 2);
-//     const left = mSort(arr.slice(0, mid));
-//     const right = mSort(arr.slice(mid));
+                await moveUpElements(elementsArray[i], elementsArray[j]);
+                await switchElements(elementsArray[i], elementsArray[j]);
+                await moveDownElements(elementsArray[i], elementsArray[j]);
 
-//     const merged = merge(left, right);
-//     console.log("Összefésülve:", merged);
 
-//     return merged;
-// };
+                helper = repArray[i];
+                repArray[i] = repArray[j];
+                repArray[j] = helper;
+
+                elementHelper = elementsArray[i];
+                elementsArray[i] = elementsArray[j];
+                elementsArray[j] = elementHelper;
+            };
+            elementsArray[j].classList.remove("inspected");
+        };
+        elementsArray[i].classList.remove("inspected");
+        elementsArray[i].classList.add("correct-position");
+    };
+    elementsArray[0].classList.add("correct-position"); // https://stackoverflow.com/questions/3216013/get-the-last-item-in-an-array
+
+    // Tényleges csere az eredeti (klónozott) tömb elemeihez
+    // for (let i = repArray.length - 1; i > 0; i--) { // A ciklus az utolsó elemtől indul és a második elemig megy (mivel az első már biztosan jó helyen lesz).
+    //     for (let j = i - 1; j >= 0; j--) { // Második ciklus. Mindig az első ciklushoz képest a következő elem a vizsgált elemek első eleme.
+    //         if (repArray[i] < repArray[j]) { // Ellenőrizzük, hogy az "i"-edik (a sorozatban korábban szereplő) elem nagyobb-e, mint aj "j"-edik (a sorozatban később szereplő) elem.
+    //             // Ha az állítás igaz, megcseréljük a 2 elem pozícióját
+    //             helper = repArray[i];
+    //             repArray[i] = repArray[j];
+    //             repArray[j] = helper;
+    //         };
+    //     };
+    // };
+};
 
 
 repInit();

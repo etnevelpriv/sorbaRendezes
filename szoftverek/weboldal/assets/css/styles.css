@@ -49,7 +49,8 @@ p, li, table {
     display: flex;
     flex-direction: column;
     gap: 50px;
-    padding-top: 60px;
+    padding: 60px 0;
+    width: 80%;
 }
 
 .title-container {
@@ -179,7 +180,7 @@ table td, th {
     display: block;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     /* AI rakta bele ezt a sort */
-    font-size: 12px;
+    font-size: 15px;
     color: var(--light);
     white-space: pre;
     /* AI rakta bele ezt a sort */
