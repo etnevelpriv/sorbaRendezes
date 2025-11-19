@@ -123,8 +123,9 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
                 };\n
             };\n
             `,
-            "Egyszerű cserés rendezés"
-
+            "Egyszerű cserés rendezés",
+            "A rendezendő tömb elemein egyesével végighaladunk.\nRendre megvizsgáljuk, hogy az adott helyen lévő elem milyen relációban van az utána következő elemekkel.\nMinden összehasonlítás után megnézzük, hogy az adott helyen lévő elem nagyobb-e a hasonlított elemnél.\nHa nagyobb, akkor megcseréljük a két elemet.\nHa az adott elemre vonatkozóan az összes összehasonlítással végeztünk, akkor jön a következő elem.\nMindaddig folytatjuk a fenti műveletet, amíg az utolsó előtti elemmel is el nem végeztük.",
+            "Négyzetes idejű algoritmus"
         ],
         [
             buSort,
@@ -142,7 +143,9 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
                 };\n
             };\n
             `,
-            "Buborékos rendezés"
+            "Buborékos rendezés",
+            "Sorban végigmegyünk a tömb elemein, és az egymás melletti elemeket összehasonlítjuk.\nMindig cserélünk, amennyiben az első elem a nagyobb. Ezáltal a legnagyobb elem a tömb végére kerül, rendezett lesz.\nA még nem rendezett elemekkel ugyanígy járunk el (balról jobbra haladva), mindaddig, amíg a tömbünk teljesen rendezett nem lesz.",
+            "Négyzetes idejű algoritmus"
         ],
         [
             gySort,
@@ -164,7 +167,7 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
     console.log("repInit for ciklus most indul");
     // Ciklus az összes rendezési módszerhez
     for (let i = 0; i < sortMethods.length; i++) {
-        // Tárolók létrehozása
+        // Tároló létrehozása
         const repContainer = document.createElement("div");
         repContainer.classList.add("rep-container");
         container.appendChild(repContainer);
@@ -174,25 +177,53 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
         title.classList.add("rep-title");
         title.textContent = sortMethods[i][2];
         repContainer.appendChild(title);
+        const titleHr = document.createElement("hr");
+        titleHr.classList.add("title-hr")
+        repContainer.appendChild(titleHr);
 
         // Bemutatas szovegek/kod/animaciohelye
-        const exampleCodeText = document.createElement("h5");
-        exampleCodeText.textContent = "Példa kód";
-        repContainer.appendChild(exampleCodeText)
-
+        // Container
         const explainContainer = document.createElement("div");
         explainContainer.classList.add("explain-container");
-        repContainer.appendChild(explainContainer)
+        repContainer.appendChild(explainContainer);
 
+        // Magyarazatok/szovegek
+        const howItWorksContainer = document.createElement("div");
+        howItWorksContainer.classList.add("howitworks-container")
+        explainContainer.appendChild(howItWorksContainer);
+
+        const howItWorksTitle = document.createElement("h5");
+        howItWorksTitle.textContent = "Működés módja";
+        howItWorksContainer.appendChild(howItWorksTitle);
+
+        const howItWorksText = document.createElement("p");
+        howItWorksText.classList.add("howitworks-text")
+        howItWorksText.textContent = sortMethods[i][3];
+        howItWorksContainer.appendChild(howItWorksText);
+
+        const timeTitle = document.createElement("h5");
+        timeTitle.textContent = "Milyen idejű?";
+        howItWorksContainer.appendChild(timeTitle);
+
+        const timeText = document.createElement("p");
+        timeText.textContent = sortMethods[i][4];
+        howItWorksContainer.appendChild(timeText);
+
+        //Kód
         const codeContainer = document.createElement("div");
         codeContainer.classList.add("code-container");
         explainContainer.appendChild(codeContainer);
+
+        const exampleCodeText = document.createElement("h5");
+        exampleCodeText.textContent = "Példa kód";
+        codeContainer.appendChild(exampleCodeText);
 
         const codeText = document.createElement("p");
         codeText.classList.add("code-text");
         codeText.textContent = sortMethods[i][1];
         codeContainer.appendChild(codeText);
 
+        // Animáció
         const animationText = document.createElement("h5");
         animationText.textContent = "Animációs bemutatás";
         animationText.classList.add("animation-text");
