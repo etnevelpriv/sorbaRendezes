@@ -2,7 +2,7 @@
 
 // Generál tömböket és azokat egyből meg is adja paraméternek az összes módszer esetében 5 alkalommal
 const init = function () {
-    const sortMethods = [ecsSort, buSort, gySort, beSort];
+    const sortMethods = [ecsSort, buSort, gySort, beSort, fkSort];
     const dataArray = [];
     const allDataArray = [];
     let randomNumber;
@@ -148,6 +148,29 @@ const beSort = async function (dataArray, allDataArray) {
 
     console.log(`Beszúrásos ideje ${arr.length} számú elemmel: ${elapsedMs}. Ellenőrzés: első elem: ${arr[0]} és az utolsó elem: ${arr[arr.length - 1]}`);
 
-}
+};
+
+const fkSort = async function (dataArray, allDataArray) {
+    const arr = dataArray.slice();
+    let helper;
+    const start = performance.now();
+
+    for (let i = arr.length - 1; i > 0; i--) {
+        for (let j = i - 1; j >= 0; j--) {
+            if (arr[i] < arr[j]) {
+                helper = arr[i];
+                arr[i] = arr[j];
+                arr[j] = helper;
+            };
+        };
+    };
+
+    const end = performance.now();
+    const elapsedMs = Number((end - start).toFixed(10));
+
+    dataPushToArray(arr.length, elapsedMs, "Beszúrásos rendezés", allDataArray)
+
+    console.log(`Fordított kiválasztásos rendezls ideje ${arr.length} számú elemmel: ${elapsedMs}. Ellenőrzés: első elem: ${arr[0]} és az utolsó elem: ${arr[arr.length - 1]}`);
+};
 
 init();

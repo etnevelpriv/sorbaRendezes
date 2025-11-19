@@ -25,7 +25,8 @@ class Program
 			EcsSort,
 			BuSort,
 			GySort,
-			BeSort
+			BeSort,
+			FkSort
 		};
 
 		var allDataArray = new List<SortResult>();
@@ -177,4 +178,32 @@ class Program
 
 		Console.WriteLine($"Beszúrásos rendezés: {arr.Length} elem | {sw.Elapsed.TotalMilliseconds} ms | első: {arr[0]}, utolsó: {arr[^1]}");
 	}
+
+    // ==== Fordított kiválasztásos rendezés ====
+    static void FkSort(int[] dataArray, List<SortResult> allDataArray)
+    {
+        var arr = (int[])dataArray.Clone();
+        var sw = Stopwatch.StartNew();
+
+        int helper;
+        for (int i = arr.Length - 1; i > 0; i--)
+        {
+            for (int j = i - 1; j >= 0; j--)
+            {
+                if (arr[i] < arr[j])
+                {
+                    helper = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = helper;
+                }
+            }
+        }
+
+        sw.Stop();
+
+        DataPushToArray(arr.Length, sw.Elapsed.TotalMilliseconds, "Fordított kiválasztásos rendezés", allDataArray);
+
+        Console.WriteLine($"Fordított kiválasztásos rendezés: {arr.Length} elem | {sw.Elapsed.TotalMilliseconds} ms | első: {arr[0]}, utolsó: {arr[^1]}");
+    }
+
 }
