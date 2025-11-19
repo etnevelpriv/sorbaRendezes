@@ -3,6 +3,7 @@
     --dark: #181818;
     --light: #ebebeb;
     --grey: #999999;
+    --dark-grey: #2c2c2c;
 }
 
 body {
@@ -13,6 +14,13 @@ body {
 /* Bevezetéshez stílusok */
 
 /* Ábrázoláshoz stílusok */
+.rep-container h5 {
+    font-size: 25px;
+    text-align: start;
+    font-weight: bold;
+    margin-left: 50px;
+}
+
 .rep-elements {
     display: flex;
     justify-content: space-between;
@@ -32,6 +40,45 @@ body {
     transition: all 1s ease;
 }
 
+.rep-title {
+    text-align: center;
+    margin: 30px auto;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.rep-hr {
+    color: var(--light);
+    width: 80%;
+    margin: 50px auto;
+    border: 1px solid var(--light);
+    opacity: 1;
+    text-align: center;
+}
+
+.animation-text {
+    text-align: center !important;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.rep-button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: transparent;
+    border: 2px solid var(--light);
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--light);
+    transition: all 0.3s ease;
+}
+
+.rep-button:hover {
+    background-color: var(--light);
+    color: var(--dark);
+}
+
 .inspected {
     box-shadow: 0px 0px 10px 5px var(--grey);
 }
@@ -45,4 +92,26 @@ body {
     background-color: var(--grey);
 }
 
-/* Adatok stílusai */
+.explain-container {
+    border: 2px solid var(--light);
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.code-container {
+    width: 100%;
+    background-color: var(--dark-grey);
+    margin: 0 auto;
+    align-items: center;
+    padding: 4px 5px;
+    border: 1px solid #3a3a3a;
+}
+.code-text {
+    display: block;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* AI rakta bele ezt a sort */
+    font-size: 12px;
+    color: var(--light);
+    white-space: pre; /* AI rakta bele ezt a sort */
+    overflow-x: auto;
+    margin: 0;
+}

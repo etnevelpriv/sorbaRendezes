@@ -108,33 +108,41 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
     const sortMethods = [
         [
             ecsSort,
-            `
-            for (let i = 0; i < repArray.length - 1; i++) { // A ciklus annyiszor fut le, ahány vizsgált elem van -1. Azért nem futtatjuk az utolsót most, mert a mátrix következő ciklusában már vizsgáljuk az utolsó elemet.
-                for (let j = i + 1; j < repArray.length; j++) { // Második ciklus. Mindig az első ciklushoz képest a következő elem a vizsgált elemek első eleme. (nagyon sok az elem, majd átfogalmazom)
-                    if (repArray[i] > repArray[j]) { // Ellenőrizzük, hogy az "i"-edik (a sorozatban korábban szereplő) elem nagyobb-e, mint a "j"-edik (a sorozatban később szereplő) elem.
-                        // Ha az állítás igaz, megcseréljük a 2 elem pozícióját
-                        helper = repArray[i];
-                        repArray[i] = repArray[j];
-                        repArray[j] = helper;
-                    };
-                };
-            };
-            `
+            `\n
+            for (let i = 0; i < repArray.length - 1; i++) {\n
+            // A ciklus annyiszor fut le, ahány vizsgált elem van -1. Azért nem futtatjuk az utolsót most, mert a mátrix következő ciklusában már vizsgáljuk az utolsó elemet.\n
+                for (let j = i + 1; j < repArray.length; j++) {\n
+                // Második ciklus. Mindig az első ciklushoz képest a következő elem a vizsgált elemek első eleme. (nagyon sok az elem, majd átfogalmazom)\n
+                    if (repArray[i] > repArray[j]) {\n
+                    // Ellenőrizzük, hogy az "i"-edik (a sorozatban korábban szereplő) elem nagyobb-e, mint a "j"-edik (a sorozatban később szereplő) elem.\n
+                        // Ha az állítás igaz, megcseréljük a 2 elem pozícióját\n
+                        helper = repArray[i];\n
+                        repArray[i] = repArray[j];\n
+                        repArray[j] = helper;\n
+                    };\n
+                };\n
+            };\n
+            `,
+            "Egyszerű cserés rendezés"
 
         ],
         [
             buSort,
-            `
-            for (let i = repArray.length - 1; i > 0; i--) { // Az utolsó elemtől indul az első ciklus és az első elemig megy
-                for (let j = 0; j < i; j++) { // Az első elemtől indul a második ciklus és addig fut, ameddig el nem éri az "i"-edik elemet
-                    if (repArray[j] > repArray[j + 1]) { // Ha a "j"-edik elem nagyobb, mint a sorban utánna lévő elem, akkor megcseréljül őket.
-                        helper = repArray[j + 1];
-                        repArray[j + 1] = repArray[j];
-                        repArray[j] = helper;
-                    };
-                };
-            };
-            `
+            `\n
+            for (let i = repArray.length - 1; i > 0; i--) {\n
+            // Az utolsó elemtől indul az első ciklus és az első elemig megy\n
+                for (let j = 0; j < i; j++) {\n
+                // Az első elemtől indul a második ciklus és addig fut, ameddig el nem éri az "i"-edik elemet\n
+                    if (repArray[j] > repArray[j + 1]) {\n
+                    // Ha a "j"-edik elem nagyobb, mint a sorban utánna lévő elem, akkor megcseréljül őket.\n
+                        helper = repArray[j + 1];\n
+                        repArray[j + 1] = repArray[j];\n
+                        repArray[j] = helper;\n
+                    };\n
+                };\n
+            };\n
+            `,
+            "Buborékos rendezés"
         ],
         [
             gySort,
@@ -156,11 +164,40 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
     console.log("repInit for ciklus most indul");
     // Ciklus az összes rendezési módszerhez
     for (let i = 0; i < sortMethods.length; i++) {
-
         // Tárolók létrehozása
         const repContainer = document.createElement("div");
         repContainer.classList.add("rep-container");
         container.appendChild(repContainer);
+
+        // Cím
+        const title = document.createElement("h3");
+        title.classList.add("rep-title");
+        title.textContent = sortMethods[i][2];
+        repContainer.appendChild(title);
+
+        // Bemutatas szovegek/kod/animaciohelye
+        const exampleCodeText = document.createElement("h5");
+        exampleCodeText.textContent = "Példa kód";
+        repContainer.appendChild(exampleCodeText)
+
+        const explainContainer = document.createElement("div");
+        explainContainer.classList.add("explain-container");
+        repContainer.appendChild(explainContainer)
+
+        const codeContainer = document.createElement("div");
+        codeContainer.classList.add("code-container");
+        explainContainer.appendChild(codeContainer);
+
+        const codeText = document.createElement("p");
+        codeText.classList.add("code-text");
+        codeText.textContent = sortMethods[i][1];
+        codeContainer.appendChild(codeText);
+
+        const animationText = document.createElement("h5");
+        animationText.textContent = "Animációs bemutatás";
+        animationText.classList.add("animation-text");
+        repContainer.appendChild(animationText)
+
         const elements = document.createElement("div");
         elements.classList.add("rep-elements");
         repContainer.appendChild(elements);
@@ -175,16 +212,20 @@ const repInit = function () { // Az összes ábrázoláshoz kapcsolatos függvé
             elements.appendChild(element);
         });
 
-        // Az összes function új tömböt kap, hogy ne piszkálhassuk az eredetit véletlenül sem
-        const repArrayClone = [...repArray];
-
-
         // Függvény futattásához gomb
         const startButton = document.createElement("button");
         startButton.classList.add("rep-button");
-        startButton.textContent = "Gomb";
+        startButton.textContent = "Animáció indítása";
         startButton.addEventListener("click", async () => sortMethods[i][0](repArrayClone, arrayUpload(elements.children, elementsArray))); // Ehhez segítséget használtam, mert nem voltam tisztában az addEventListener pontos működésével: https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
         repContainer.appendChild(startButton);
+
+        // Az összes function új tömböt kap, hogy ne piszkálhassuk az eredetit véletlenül sem
+        const repArrayClone = [...repArray];
+
+        // Elválasztó vonal
+        const repHr = document.createElement("hr");
+        repHr.classList.add("rep-hr")
+        repContainer.appendChild(repHr);
 
         console.log(`repInit for ciklus lefutott ${i} alkalommal`);
 
