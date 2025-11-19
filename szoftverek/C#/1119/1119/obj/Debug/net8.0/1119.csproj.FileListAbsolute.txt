@@ -1,0 +1,14 @@
+C:\Users\Diák\source\repos\1119\1119\bin\Debug\net8.0\1119.exe
+C:\Users\Diák\source\repos\1119\1119\bin\Debug\net8.0\1119.deps.json
+C:\Users\Diák\source\repos\1119\1119\bin\Debug\net8.0\1119.runtimeconfig.json
+C:\Users\Diák\source\repos\1119\1119\bin\Debug\net8.0\1119.dll
+C:\Users\Diák\source\repos\1119\1119\bin\Debug\net8.0\1119.pdb
+C:\Users\Diák\source\repos\1119\1119\obj\Debug\net8.0\1119.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Diák\source\repos\1119\1119\obj\Debug\net8.0\1119.AssemblyInfoInputs.cache
+C:\Users\Diák\source\repos\1119\1119\obj\Debug\net8.0\1119.AssemblyInfo.cs
+C:\Users\Diák\source\repos\1119\1119\obj\Debug\net8.0\1119.csproj.CoreCompileInputs.cache
+C:\Users\Diák\source\repos\1119\1119\obj\Debug\net8.0\1119.dll
+C:\Users\Diák\source\repos\1119\1119\obj\Debug\net8.0\refint\1119.dll
+C:\Users\Diák\source\repos\1119\1119\obj\Debug\net8.0\1119.pdb
+C:\Users\Diák\source\repos\1119\1119\obj\Debug\net8.0\1119.genruntimeconfig.cache
+C:\Users\Diák\source\repos\1119\1119\obj\Debug\net8.0\ref\1119.dll

@@ -54,7 +54,7 @@ Teendők:
                     <h2>Adatok típusai</h2>
                     <p class="mute">2 féle képpen szemléltetjük az adatokat</p>
                     <ul>
-                        <li><strong>Gyors szemléltetés érdekében:</strong> Dinamikusan létrehozott random adatok a
+                        <li><strong>Gyors szemléltetés érdekében:</strong> Statikusan létrehozott random adatok a
                             weboldalon megjelnítve</li>
                         <li><strong>Hitelesség és igazolás érdekében: Valós mérések nagyobb adathalmazokkal különböző
                                 nyelvekben egy rendezett statikus excel táblázatban megjelenítve.</strong></li>
@@ -68,40 +68,40 @@ Teendők:
                     <h2>Bemutatott módszerek</h2>
                     <p class="mute">Ízelítő a bemutatásra kerülő módszerekről</p>
 
-                    <!-- Ezt a táblázatot Js-ben dinamikus adatokkal jobb lenne megvalósítani -->
+                    <!-- Ezt a táblázatot Js-ben dinamikus adatokkal jobb lenne megvalósítani (de nem fogom :P) -->
                     <table>
                         <tr>
                             <th>Módszer neve</th>
                             <th>Mire jó/mikor használjuk?</th>
-                            <th>100 adatra átlagos idő (másodperc) (Js)</th>
-                            <th>100 adatra átlagos idő (másodperc) (C#)</th>
+                            <th>10000 adatra átlagos idő (Ms) (Js)</th>
+                            <th>10000 adatra átlagos idő (Ms) (C#)</th>
                         </tr>
                         <tr>
                             <th>Egyszerű cserés rendezés</th>
                             <td>Akkor amikor...</td>
-                            <td>x mp</td>
-                            <td>x mp</td>
+                            <td>86,94 ms</td>
+                            <td>172,92 mp</td>
                         </tr>
                         <tr>
                             <th>Buborék rendezés</th>
                             <td>Akkor amikor...</td>
-                            <td>x mp</td>
-                            <td>x mp</td>
+                            <td>61,28 mp</td>
+                            <td>159,46 mp</td>
                         </tr>
                         <tr>
                             <th>Gyors rendezés</th>
                             <td>Akkor amikor...</td>
-                            <td>x mp</td>
-                            <td>x mp</td>
-                        </tr>
-                        <tr>
-                            <th>Kiválasztásos rendezés</th>
-                            <td>Akkor amikor...</td>
-                            <td>x mp</td>
-                            <td>x mp</td>
+                            <td>0,24 mp</td>
+                            <td>0,85 mp</td>
                         </tr>
                         <tr>
                             <th>Beszúrásos rendezés</th>
+                            <td>Akkor amikor...</td>
+                            <td>10,8 mp</td>
+                            <td>37,01 mp</td>
+                        </tr>
+                        <tr>
+                            <th>X rendezés</th>
                             <td>Akkor amikor...</td>
                             <td>x mp</td>
                             <td>x mp</td>

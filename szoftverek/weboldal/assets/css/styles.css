@@ -9,9 +9,64 @@
 body {
     background-color: var(--dark);
     color: var(--light);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+p, li, table {
+    font-family: monospace;
+}
+
+/* Nav */
+.nav {
+    display: flex;
+    position: fixed;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 100px;
+    background-color: var(--dark);
+    height: 50px;
+    z-index: 1001;
+}
+
+.nav a {
+    display: flex;
+    height: 40px;
+    align-items: center;
+    color: var(--light);
+    transition: all 0.3s ease;
+    border-bottom: 2px solid var(--light);
+}
+
+.nav a:hover {
+    color: var(--grey);
+    border-bottom: 2px solid var(--grey);
 }
 
 /* Bevezetéshez stílusok */
+.intro-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding-top: 60px;
+}
+
+.title-container {
+    text-align: center;
+    font-weight: bold;
+}
+
+table {
+    border: 2px solid var(--light);
+}
+
+table td, th {
+    border: 2px solid var(--grey);
+    padding: 10px;
+    font-size: 13px;
+}
+
 
 /* Ábrázoláshoz stílusok */
 .rep-container h5 {
@@ -23,7 +78,8 @@ body {
 .rep-elements {
     display: flex;
     justify-content: space-between;
-    margin: 100px 0;
+    margin: 100px auto;
+    width: 80%;
 }
 
 .rep-element {
