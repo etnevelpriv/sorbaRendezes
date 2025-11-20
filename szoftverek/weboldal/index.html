@@ -75,31 +75,31 @@ Teendők:
                             <th>Egyszerű cserés rendezés</th>
                             <td>Akkor amikor...</td>
                             <td>86,94 ms</td>
-                            <td>172,92 mp</td>
+                            <td>172,92 ms</td>
                         </tr>
                         <tr>
                             <th>Buborék rendezés</th>
                             <td>Akkor amikor...</td>
-                            <td>61,28 mp</td>
-                            <td>159,46 mp</td>
+                            <td>61,28 ms</td>
+                            <td>159,46 ms</td>
                         </tr>
                         <tr>
                             <th>Gyors rendezés</th>
                             <td>Akkor amikor...</td>
-                            <td>0,24 mp</td>
-                            <td>0,85 mp</td>
+                            <td>0,24 ms</td>
+                            <td>0,85 ms</td>
                         </tr>
                         <tr>
                             <th>Beszúrásos rendezés</th>
                             <td>Akkor amikor...</td>
-                            <td>10,8 mp</td>
-                            <td>37,01 mp</td>
+                            <td>10,8 ms</td>
+                            <td>37,02 ms</td>
                         </tr>
                         <tr>
-                            <th>X rendezés</th>
+                            <th>Fordított kiválasztásos rendezés</th>
                             <td>Akkor amikor...</td>
-                            <td>x mp</td>
-                            <td>x mp</td>
+                            <td>91,14 ms</td>
+                            <td>239,95 ms</td>
                         </tr>
                     </table>
                 </div>
@@ -109,10 +109,65 @@ Teendők:
 
     <div class="container" id="rep"></div>
 
-    <div class="container" id="dataContainer"></div>
+    <div class="container diagram-container" id="datas">
+        <div class="diagram-title">
+            <h2>Összehasonlítás</h2>
+            <h5>Különböző módszereket 10000 darabszámmal (ms)</h5>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 diagrams">
+                <table class="diagram-table">
+                    <tr>
+                        <th>Módszer neve</th>
+                        <th>Szín</th>
+                    </tr>
+                    <tr>
+                        <td>Egyszerű cserés</td>
+                        <td class="blue">Kék</td>
+                    </tr>
+                    <tr>
+                        <td>Buborékos</td>
+                        <td class="green">Zöld</td>
+                    </tr>
+                    <tr>
+                        <td>Gyors</td>
+                        <td class="red">Piros</td>
+                    </tr>
+                    <tr>
+                        <td>Beszúrásos</td>
+                        <td class="orange">Narancssárga</td>
+                    </tr>
+                    <tr>
+                        <td>Fordított kiválasztásos</td>
+                        <td class="pink">Rózsaszín</td>
+                    </tr>
+                </table>
+                <img src="./assets/images/diagram0.png" class="diagram" alt="">
+                <img src="./assets/images/diagam1.png" class="diagram" alt="">
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 diagrams">
+                <table class="diagram-table">
+                    <tr>
+                        <th>Programozási nyelv</th>
+                        <th>Szín</th>
+                    </tr>
+                    <tr>
+                        <td>Javascript</td>
+                        <td class="blue">Kék</td>
+                    </tr>
+                    <tr>
+                        <td>C#</td>
+                        <td class="green">Zöld</td>
+                    </tr>
+                </table>
+                <img src="./assets/images/diagram2.png" class="diagram" alt="">
+                <img src="./assets/images/diagram3.png" class="diagram" alt="">
+            </div>
+        </div>
+    </div>
 
     <!-- Js fájlok -->
-    <script src="./assets/js/data.js"></script>
+    <script src="./assets/js/main.js"></script>
 
 </body>
 

@@ -1,3 +1,4 @@
+// Nem létezik Js-ben lista.
 "use strict";
 
 // Generál tömböket és azokat egyből meg is adja paraméternek az összes módszer esetében 5 alkalommal
@@ -7,7 +8,7 @@ const init = function () {
     const allDataArray = [];
     let randomNumber;
     // console.log("fuggveny betoltott")
-    for (let i = 1; i < 10000; i = i * 10) {
+    for (let i = 1; i < 100000; i = i * 10) {
         // console.log("For i ciklus lefutott: " + i)
         dataArray.length = 0;
         for (let j = 0; j < i * 10; j++) {

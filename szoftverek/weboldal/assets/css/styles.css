@@ -4,15 +4,23 @@
     --light: #ebebeb;
     --grey: #999999;
     --dark-grey: #2c2c2c;
+    --green: #39D401;
+    --blue: #00B0F0;
+    --red: #FF0000;
+    --orange: #FFC000;
+    --pink: #D86ECC;
 }
 
 body {
     background-color: var(--dark);
     color: var(--light);
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
 }
 
-p, li, table {
+p,
+li,
+table {
     font-family: monospace;
 }
 
@@ -62,7 +70,8 @@ table {
     border: 2px solid var(--light);
 }
 
-table td, th {
+table td,
+th {
     border: 2px solid var(--grey);
     padding: 10px;
     font-size: 13px;
@@ -189,4 +198,57 @@ table td, th {
     background-color: var(--dark-grey);
     border: 1px solid #3a3a3a;
 
+}
+
+/* Diagrammok */
+
+.blue {
+    color: var(--blue);
+}
+
+.green {
+    color: var(--green);
+}
+
+.red {
+    color: var(--red);
+}
+
+.orange {
+    color: var(--orange);
+}
+
+.pink {
+    color: var(--pink);
+}
+
+.diagram-container {
+    text-align: center;
+    width: 100%;
+    margin: 50px auto;
+    gap: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.diagrams {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+    text-align: center;
+
+}
+
+.diagram {
+    height: 300px;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.diagram-table {
+    height: 300px;
+    width: 500px;
+    margin: 0 auto;
 }

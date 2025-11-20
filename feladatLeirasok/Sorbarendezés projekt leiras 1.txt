@@ -2,16 +2,10 @@
 
 A csapatok feladata, hogy a "sorbarendezés" informatikai problémával kapcsolatban készítsenek weboldalt az alábbiak szerint:
 
-A weboldalnak be kell mutatnia öt sorbarendezési algoritmust, amelyben kötelezően szerepelnie kell az egyszerű cserés rendezésnek, a buborék rendezésnek és a gyorsrendezésnek (quick sort). A bemutatott algoritmusokat részletesen el kell magyarázni, nemcsak szövegesen, de beágyazott videó ill. animáció segítségével is szemléltetni kell mindegyik algoritmus működési módját.
 
-Mindegyik bemutatott algoritmus esetében méréseket kell végezni. Véletlenszám generátorral kell generálni az egész szám elemeket. Különböző elemszámok esetében mérni kell a rendezési időt, és el kell tárolni a mért eredményeket, majd Excel dokumentumban grafikonon ábrázolni kell a mérések eredményét. A diagram(oka)t be kell mutatni a weboldalon is, és értelmezni kell azt. 
 
-Fontos, hogy az összehasonlításnál mindig ugyanazon tömbelemek (vagy listaelemek) rendezését mérjük a különböző algoritmusokkal! Minden egyes mérést meg kell ismételni Ötször, és a számtani átlagukat kell az adott méréshez beírni! 
 
 A mérésekkel vizsgálja azt is, hogy van-e különbség a rendezési idő között akkor ha tömbelemeket vagy listaelemeket rendezünk. Ezeket a méréseket is dokumentálja, és diagramon szemléltesse az eredményeket. 
-
-Az összehasonlítás tehát két szálon fut: 
-1. Összehasonlítani a különböző rendezési algoritmusok hatékonyságát különböző elemszámok esetén
 2. Összehasonlítani a tömbelemek rendezését a listaelemek rendezésével, meg lehet-e állapítani, hogy melyik a hatékonyabb?
 
 Összegzésképpen meg kell állapítani, hogy kis elemszámok ill nagy elemszámok esetén melyik rendezési algoritmust érdemes alkalmazni. Illetve azt is állapítsa meg, hogy tömbelemek vagy listaelemek esetében működik hatékonyabban a rendezés? Indokolni is kell a megállapításokat a mérési eredményekkel!
