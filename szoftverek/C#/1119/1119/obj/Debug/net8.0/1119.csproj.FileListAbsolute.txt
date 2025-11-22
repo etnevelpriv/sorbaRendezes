@@ -27,3 +27,17 @@ C:\Users\Admin\Documents\Suli\Projektmunka\sorbaRendezes\szoftverek\C#\1119\1119
 C:\Users\Admin\Documents\Suli\Projektmunka\sorbaRendezes\szoftverek\C#\1119\1119\obj\Debug\net8.0\1119.pdb
 C:\Users\Admin\Documents\Suli\Projektmunka\sorbaRendezes\szoftverek\C#\1119\1119\obj\Debug\net8.0\1119.genruntimeconfig.cache
 C:\Users\Admin\Documents\Suli\Projektmunka\sorbaRendezes\szoftverek\C#\1119\1119\obj\Debug\net8.0\ref\1119.dll
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\bin\Debug\net8.0\1119.exe
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\bin\Debug\net8.0\1119.deps.json
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\bin\Debug\net8.0\1119.runtimeconfig.json
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\bin\Debug\net8.0\1119.dll
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\bin\Debug\net8.0\1119.pdb
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\obj\Debug\net8.0\1119.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\obj\Debug\net8.0\1119.AssemblyInfoInputs.cache
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\obj\Debug\net8.0\1119.AssemblyInfo.cs
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\obj\Debug\net8.0\1119.csproj.CoreCompileInputs.cache
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\obj\Debug\net8.0\1119.dll
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\obj\Debug\net8.0\refint\1119.dll
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\obj\Debug\net8.0\1119.pdb
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\obj\Debug\net8.0\1119.genruntimeconfig.cache
+C:\Users\borba\Documents\iskola\12.E\project\11,20\szoftverek\C#\1119\1119\obj\Debug\net8.0\ref\1119.dll

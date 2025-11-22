@@ -238,7 +238,8 @@ th {
     justify-content: center;
     gap: 50px;
     text-align: center;
-
+    border: 2px solid var(--light);
+    padding: 20px;
 }
 
 .diagram {
