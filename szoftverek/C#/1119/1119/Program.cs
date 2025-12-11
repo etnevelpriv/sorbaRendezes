@@ -9,30 +9,25 @@ class Program
         Init();
     }
 
-    // ==== Globális adattároló típus ====
     public class SortResult
     {
-        public int AdatokSzama { get; set; }
+        public int AdatokSzama { get; set; } 
         public double Ido { get; set; }
         public string Modszer { get; set; }
     }
 
-    // ==== Init függvény ====
     static void Init()
     {
         var sortMethods = new List<Action<List<int>, List<SortResult>>>
         {
-            EcsSort,
-            BuSort,
-            GySort,
-            BeSort,
-            FkSort
+            EcsSort
+            //GySort
         };
 
         var allDataArray = new List<SortResult>();
         var random = new Random();
 
-        for (int i = 1; i < 10000; i *= 10)
+        for (int i = 1; i < 100000; i *= 10)
         {
             var dataList = new List<int>(i * 10);
 
@@ -57,7 +52,6 @@ class Program
         }
     }
 
-    // ==== Adattároló függvény ====
     static void DataPushToArray(int arrayLength, double elapsedTime, string methodName, List<SortResult> allDataArray)
     {
         allDataArray.Add(new SortResult
@@ -68,7 +62,6 @@ class Program
         });
     }
 
-    // ==== Egyszerű cserés rendezés ====
     static void EcsSort(List<int> dataList, List<SortResult> allDataArray)
     {
         var arr = new List<int>(dataList);
@@ -91,30 +84,6 @@ class Program
         Console.WriteLine($"Egyszerű cserés rendezés: {arr.Count} elem | {sw.Elapsed.TotalMilliseconds} ms | első: {arr[0]}, utolsó: {arr[^1]}");
     }
 
-    // ==== Buborékos rendezés ====
-    static void BuSort(List<int> dataList, List<SortResult> allDataArray)
-    {
-        var arr = new List<int>(dataList);
-        var sw = Stopwatch.StartNew();
-
-        for (int i = arr.Count - 1; i > 0; i--)
-        {
-            for (int j = 0; j < i; j++)
-            {
-                if (arr[j] > arr[j + 1])
-                {
-                    (arr[j], arr[j + 1]) = (arr[j + 1], arr[j]);
-                }
-            }
-        }
-
-        sw.Stop();
-
-        DataPushToArray(arr.Count, sw.Elapsed.TotalMilliseconds, "Buborékos rendezés", allDataArray);
-        Console.WriteLine($"Buborékos rendezés: {arr.Count} elem | {sw.Elapsed.TotalMilliseconds} ms | első: {arr[0]}, utolsó: {arr[^1]}");
-    }
-
-    // ==== Gyorsrendezés (Quicksort) ====
     static void GySort(List<int> dataList, List<SortResult> allDataArray)
     {
         var arr = new List<int>(dataList);
@@ -148,53 +117,5 @@ class Program
 
         if (low < j) QuickSort(arr, low, j);
         if (i < high) QuickSort(arr, i, high);
-    }
-
-    // ==== Beszúrásos rendezés ====
-    static void BeSort(List<int> dataList, List<SortResult> allDataArray)
-    {
-        var arr = new List<int>(dataList);
-        var sw = Stopwatch.StartNew();
-
-        for (int i = 1; i < arr.Count; i++)
-        {
-            int helper = arr[i];
-            int j = i - 1;
-
-            while (j >= 0 && arr[j] > helper)
-            {
-                arr[j + 1] = arr[j];
-                j--;
-            }
-            arr[j + 1] = helper;
-        }
-
-        sw.Stop();
-
-        DataPushToArray(arr.Count, sw.Elapsed.TotalMilliseconds, "Beszúrásos rendezés", allDataArray);
-        Console.WriteLine($"Beszúrásos rendezés: {arr.Count} elem | {sw.Elapsed.TotalMilliseconds} ms | első: {arr[0]}, utolsó: {arr[^1]}");
-    }
-
-    // ==== Fordított kiválasztásos rendezés ====
-    static void FkSort(List<int> dataList, List<SortResult> allDataArray)
-    {
-        var arr = new List<int>(dataList);
-        var sw = Stopwatch.StartNew();
-
-        for (int i = arr.Count - 1; i > 0; i--)
-        {
-            for (int j = i - 1; j >= 0; j--)
-            {
-                if (arr[i] < arr[j])
-                {
-                    (arr[i], arr[j]) = (arr[j], arr[i]);
-                }
-            }
-        }
-
-        sw.Stop();
-
-        DataPushToArray(arr.Count, sw.Elapsed.TotalMilliseconds, "Fordított kiválasztásos rendezés", allDataArray);
-        Console.WriteLine($"Fordított kiválasztásos rendezés: {arr.Count} elem | {sw.Elapsed.TotalMilliseconds} ms | első: {arr[0]}, utolsó: {arr[^1]}");
     }
 }

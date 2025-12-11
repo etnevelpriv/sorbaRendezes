@@ -1,19 +1,19 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\Suli\\Projektmunka\\sorbaRendezes\\szoftverek\\C#\\1119\\",
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\Suli\\Projektmunka\\sorbaRendezes\\sorbaRendezes\\szoftverek\\C#\\1119\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A9E18CAA-1A79-4D74-9AA9-F88D1C1008AB}|1119\\1119.csproj|c:\\users\\admin\\documents\\suli\\projektmunka\\sorbarendezes\\szoftverek\\c#\\1119\\1119\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A9E18CAA-1A79-4D74-9AA9-F88D1C1008AB}|1119\\1119.csproj|c:\\users\\admin\\documents\\suli\\projektmunka\\sorbarendezes\\sorbarendezes\\szoftverek\\c#\\1119\\1119\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9E18CAA-1A79-4D74-9AA9-F88D1C1008AB}|1119\\1119.csproj|solutionrelative:1119\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 0,
+      "Orientation": 1,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
+          "DockedHeight": 337,
           "SelectedChildIndex": 2,
           "Children": [
             {
@@ -28,14 +28,32 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Suli\\Projektmunka\\sorbaRendezes\\szoftverek\\C#\\1119\\1119\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Suli\\Projektmunka\\sorbaRendezes\\sorbaRendezes\\szoftverek\\C#\\1119\\1119\\Program.cs",
               "RelativeDocumentMoniker": "1119\\Program.cs",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\Suli\\Projektmunka\\sorbaRendezes\\szoftverek\\C#\\1119\\1119\\Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Suli\\Projektmunka\\sorbaRendezes\\sorbaRendezes\\szoftverek\\C#\\1119\\1119\\Program.cs",
               "RelativeToolTip": "1119\\Program.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAswBwAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAQwA0AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-19T07:30:45.296Z",
               "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 63,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{4a9b7e51-aa16-11d0-a8c5-00a0c921a4d2}"
             }
           ]
         }
